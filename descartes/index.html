@@ -904,18 +904,18 @@ function updateKPIs() {
 
   const $ = id => document.getElementById(id);
 
+  // Defaults hardcodeados — visibles para todos (localStorage los sobreescribe si existen)
+  if (!isData)  isData  = { pf:'2.64', wr:'90.2', net:'~$66,000', trades:'4170' };
+  if (!oosData) oosData = { pf:'2.57', wr:'89.1', net:'~$36,000', trades:'2296' };
+
   // IS
   if (isData && isData.pf) {
     $('kpi-is-pf').textContent = 'PF ' + parseFloat(isData.pf).toFixed(2) + '×';
     $('kpi-is-pf').style.color = 'var(--green)';
     $('kpi-is-sub').textContent =
-      (isData.wr  ? 'WR ' + isData.wr + ' · ' : '') +
+      (isData.wr  ? 'WR ' + isData.wr + '% · ' : '') +
       (isData.net ? isData.net : '') +
       (isData.trades ? ' · ' + Number(isData.trades).toLocaleString() + ' trades' : '');
-  } else {
-    $('kpi-is-pf').textContent = 'Pendiente';
-    $('kpi-is-pf').style.color = 'var(--green)';
-    $('kpi-is-sub').textContent = 'Sube la imagen IS para ingresar datos';
   }
 
   // OOS
@@ -923,13 +923,9 @@ function updateKPIs() {
     $('kpi-oos-pf').textContent = 'PF ' + parseFloat(oosData.pf).toFixed(2) + '×';
     $('kpi-oos-pf').style.color = 'var(--blue)';
     $('kpi-oos-sub').textContent =
-      (oosData.wr  ? 'WR ' + oosData.wr + ' · ' : '') +
+      (oosData.wr  ? 'WR ' + oosData.wr + '% · ' : '') +
       (oosData.net ? oosData.net : '') +
       (oosData.trades ? ' · ' + Number(oosData.trades).toLocaleString() + ' trades' : '');
-  } else {
-    $('kpi-oos-pf').textContent = 'Pendiente';
-    $('kpi-oos-pf').style.color = 'var(--blue)';
-    $('kpi-oos-sub').textContent = 'Sube la imagen OOS para ingresar datos';
   }
 
   // Degradación + Veredicto (solo si tenemos ambos PFs)
@@ -1035,21 +1031,17 @@ function updateWFAKPIs() {
   let d = null;
   try { d = JSON.parse(localStorage.getItem('holdout_wfa') || 'null'); } catch(ex){}
   const $ = id => document.getElementById(id);
+  if (!d) d = { pf:'2.57', wr:'89.1', trades:'2296', net:'~$36,000', dd:'–$1,609' };
   if (d && d.pf) {
     $('kpi-wfa-pf').textContent  = 'PF ' + parseFloat(d.pf).toFixed(2) + '×';
     $('kpi-wfa-pf').style.color  = 'var(--green)';
-    $('kpi-wfa-sub').textContent = (d.wr ? 'WR ' + d.wr + ' · ' : '') + (d.trades ? Number(d.trades).toLocaleString() + ' trades' : '');
+    $('kpi-wfa-sub').textContent = (d.wr ? 'WR ' + d.wr + '% · ' : '') + (d.trades ? Number(d.trades).toLocaleString() + ' trades' : '');
     $('kpi-wfa-wr').textContent  = d.wr  ? d.wr + '%' : '—';
-    $('kpi-wfa-wr').style.color  = d.wr  ? 'var(--green)' : 'var(--text2)';
+    $('kpi-wfa-wr').style.color  = 'var(--green)';
     $('kpi-wfa-net').textContent = d.net ? d.net : '—';
-    $('kpi-wfa-net').style.color = d.net ? 'var(--green)' : 'var(--text2)';
+    $('kpi-wfa-net').style.color = 'var(--green)';
     $('kpi-wfa-dd').textContent  = d.dd  ? d.dd  : '—';
-    $('kpi-wfa-dd').style.color  = d.dd  ? 'var(--red)'   : 'var(--text2)';
-  } else {
-    ['kpi-wfa-pf','kpi-wfa-wr','kpi-wfa-net','kpi-wfa-dd'].forEach(id => {
-      const el = $(id); if (el) { el.textContent = '—'; el.style.color = 'var(--text2)'; }
-    });
-    if ($('kpi-wfa-sub')) $('kpi-wfa-sub').textContent = 'Sube el Summary WFA para ingresar datos';
+    $('kpi-wfa-dd').style.color  = 'var(--red)';
   }
 }
 
