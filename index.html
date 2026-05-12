@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portafolio de Estrategias — Pedro</title>
+<style>
+:root {
+  --bg:     #0a0e17;
+  --bg2:    #111827;
+  --bg3:    #1a2235;
+  --bg4:    #1f2d42;
+  --border: #1e2d45;
+  --green:  #00e5a0;
+  --green2: #00b87a;
+  --red:    #ff5252;
+  --blue:   #4d9fff;
+  --blue2:  #2979d4;
+  --gold:   #ffc107;
+  --gold2:  #e6a800;
+  --orange: #ff8c42;
+  --orange2:#e07030;
+  --purple: #9c71f7;
+  --text:   #eaf0fb;
+  --text2:  #6b7fa3;
+  --text3:  #3d4f6e;
+  --font:   'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:var(--font); min-height:100vh; overflow-x:hidden; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  height:56px; display:flex; align-items:center; justify-content:space-between;
+  padding:0 40px;
+  background:rgba(10,14,23,.85); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-brand { display:flex; align-items:center; gap:12px; }
+.nav-icon {
+  width:34px; height:34px; border-radius:8px;
+  background:linear-gradient(135deg, var(--green), var(--blue));
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:14px; color:#000; flex-shrink:0;
+}
+.nav-name  { font-size:14px; font-weight:700; letter-spacing:.3px; }
+.nav-sub   { font-size:11px; color:var(--text2); }
+.nav-live  {
+  display:flex; align-items:center; gap:7px;
+  background:rgba(0,229,160,.08); border:1px solid rgba(0,229,160,.25);
+  color:var(--green); font-size:11px; font-weight:600;
+  padding:5px 14px; border-radius:20px; letter-spacing:.3px;
+}
+.pulse { width:7px; height:7px; background:var(--green); border-radius:50%; animation:blink 1.4s ease infinite; }
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.8)} }
+
+/* ── HERO ── */
+.hero {
+  padding: 120px 40px 60px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+  width:800px; height:400px;
+  background:radial-gradient(ellipse at center, rgba(0,229,160,.07) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(0,229,160,.08); border:1px solid rgba(0,229,160,.2);
+  color:var(--green); font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1.5px; padding:5px 16px; border-radius:20px; margin-bottom:24px;
+}
+.hero h1 {
+  font-size:52px; font-weight:900; letter-spacing:-2px; line-height:1.05;
+  background:linear-gradient(135deg, #fff 30%, var(--green) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:16px;
+}
+.hero-sub { font-size:16px; color:var(--text2); max-width:520px; margin:0 auto 52px; line-height:1.6; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display:flex; justify-content:center; gap:0; margin-bottom:80px;
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:16px; overflow:hidden; max-width:720px; margin-left:auto; margin-right:auto;
+}
+.stat-cell {
+  flex:1; padding:22px 24px; text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;
+}
+.stat-cell:last-child { border-right:none; }
+.stat-val { font-size:26px; font-weight:900; color:var(--green); line-height:1; }
+.stat-lbl { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:var(--text2); margin-top:6px; }
+
+/* ── GRID ── */
+.grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(520px,1fr));
+  gap:28px; padding:0 40px 80px; max-width:1300px; margin:0 auto;
+}
+
+/* ── CARD ── */
+.card {
+  background:var(--bg2); border:1px solid var(--border); border-radius:20px;
+  overflow:hidden; transition:transform .25s, box-shadow .25s, border-color .25s;
+  cursor:pointer; text-decoration:none; display:flex; flex-direction:column;
+  color:inherit;
+}
+.card:hover { transform:translateY(-6px); border-color:rgba(255,255,255,.1); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+
+/* Card accent bar at top */
+.card-accent { height:4px; width:100%; }
+.card-accent-green  { background:linear-gradient(90deg, var(--green2), var(--green), var(--blue)); }
+.card-accent-blue   { background:linear-gradient(90deg, var(--blue2), var(--blue), var(--purple)); }
+.card-accent-gold   { background:linear-gradient(90deg, var(--gold2), var(--gold), #ffdd57); }
+.card-accent-orange { background:linear-gradient(90deg, var(--orange2), var(--orange), var(--gold)); }
+
+/* Card header */
+.card-head {
+  padding:28px 28px 0;
+  display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+}
+.card-title { font-size:26px; font-weight:900; letter-spacing:-.8px; }
+.card-tagline { font-size:12px; color:var(--text2); margin-top:5px; line-height:1.4; }
+.badge {
+  flex-shrink:0; display:flex; align-items:center; gap:6px;
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px;
+  padding:5px 12px; border-radius:20px; white-space:nowrap;
+}
+.badge-live   { background:rgba(0,229,160,.1); border:1px solid rgba(0,229,160,.35); color:var(--green); }
+.badge-ready  { background:rgba(77,159,255,.1); border:1px solid rgba(77,159,255,.35); color:var(--blue); }
+.badge-gold   { background:rgba(255,193,7,.1);  border:1px solid rgba(255,193,7,.35);  color:var(--gold); }
+.badge-orange { background:rgba(255,140,66,.1); border:1px solid rgba(255,140,66,.35); color:var(--orange); }
+
+/* Info row */
+.card-info-row {
+  display:flex; flex-wrap:wrap; gap:8px;
+  padding:20px 28px 0;
+}
+.info-chip {
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:8px; padding:7px 12px;
+  display:flex; flex-direction:column; gap:2px;
+}
+.info-chip-lbl { font-size:9px; text-transform:uppercase; letter-spacing:.6px; color:var(--text2); }
+.info-chip-val { font-size:13px; font-weight:700; }
+.info-chip-val.green  { color:var(--green); }
+.info-chip-val.blue   { color:var(--blue); }
+.info-chip-val.gold   { color:var(--gold); }
+
+/* Description */
+.card-desc {
+  padding:18px 28px;
+  font-size:13px; color:var(--text2); line-height:1.65;
+  border-bottom:1px solid var(--border);
+}
+
+/* KPI block */
+.kpi-block {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; background:var(--border);
+}
+.kpi-item { background:var(--bg2); padding:18px 20px; }
+.kpi-lbl  { font-size:9px; text-transform:uppercase; letter-spacing:.6px; color:var(--text2); }
+.kpi-val  { font-size:22px; font-weight:900; margin-top:5px; line-height:1; }
+.kpi-sub  { font-size:10px; color:var(--text3); margin-top:3px; }
+.kv-green  { color:var(--green); }
+.kv-red    { color:var(--red); }
+.kv-gold   { color:var(--gold); }
+.kv-blue   { color:var(--blue); }
+.kv-purple { color:var(--purple); }
+
+/* Win rate progress */
+.wr-section { padding:20px 28px; }
+.wr-header  { display:flex; justify-content:space-between; font-size:11px; color:var(--text2); margin-bottom:8px; }
+.wr-header strong { color:var(--text); font-size:14px; }
+.wr-track   { height:6px; background:var(--bg3); border-radius:3px; overflow:hidden; }
+.wr-fill    { height:100%; border-radius:3px; transition:width 1.8s cubic-bezier(.2,.8,.2,1); }
+.wr-fill-green  { background:linear-gradient(90deg, var(--green2), var(--green)); }
+.wr-fill-orange { background:linear-gradient(90deg, #e06020, #ff9d00); }
+.wr-fill-gold   { background:linear-gradient(90deg, var(--gold2), var(--gold)); }
+.wr-fill-panzer { background:linear-gradient(90deg, var(--orange2), var(--orange)); }
+
+/* Card footer */
+.card-foot {
+  padding:18px 28px; margin-top:auto;
+  display:flex; align-items:center; justify-content:space-between;
+  border-top:1px solid var(--border);
+}
+.card-period { font-size:11px; color:var(--text2); }
+.card-cta {
+  font-size:12px; font-weight:700; color:var(--text);
+  background:var(--bg3); border:1px solid var(--border);
+  padding:8px 20px; border-radius:8px;
+  transition:background .2s, border-color .2s, color .2s;
+  text-decoration:none;
+}
+.card:hover .card-cta { background:var(--green); border-color:var(--green); color:#000; }
+
+/* ── COMPARE SECTION ── */
+.compare {
+  max-width:1300px; margin:0 auto 80px; padding:0 40px;
+}
+.compare-title {
+  font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--text2);
+  margin-bottom:20px; display:flex; align-items:center; gap:12px;
+}
+.compare-title::before, .compare-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.compare-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:16px;
+}
+.cmp-row {
+  background:var(--bg2); border:1px solid var(--border); border-radius:12px;
+  padding:16px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;
+}
+.cmp-lbl { font-size:12px; color:var(--text2); }
+.cmp-vals { display:flex; gap:20px; }
+.cmp-val  { text-align:right; }
+.cmp-name { font-size:9px; text-transform:uppercase; letter-spacing:.5px; color:var(--text2); }
+.cmp-num  { font-size:15px; font-weight:800; margin-top:2px; }
+
+@media(max-width:900px) {
+  .grid { grid-template-columns:1fr; padding:0 20px 60px; }
+  .hero { padding:96px 20px 48px; }
+  .hero h1 { font-size:36px; }
+  nav { padding:0 20px; }
+  .stats-bar { margin:0 20px 60px; }
+  .compare { padding:0 20px; }
+  .compare-grid { grid-template-columns:1fr; }
+}
+@media(max-width:640px) {
+  .kpi-block { grid-template-columns:repeat(2,1fr); }
+  .stat-cell { padding:16px 12px; }
+  .stat-val { font-size:20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-icon">P</div>
+    <div>
+      <div class="nav-name">Portafolio de Estrategias</div>
+      <div class="nav-sub">NinjaTrader 8 · Futuros CME · ES / MES / GC</div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="nav-live">
+      <div class="pulse"></div>
+      4 estrategias · 1 en vivo · APEX-568274-01
+    </div>
+    <button id="btn-snapshot" onclick="crearSnapshot()" style="
+      display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;
+      background:rgba(0,229,160,.1);border:1px solid rgba(0,229,160,.3);
+      color:var(--green);font-size:12px;font-weight:700;cursor:pointer;
+      font-family:var(--font);transition:all .2s;">
+      <div id="snap-spinner" style="display:none;width:12px;height:12px;border:2px solid rgba(0,229,160,.3);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;"></div>
+      <span id="snap-label">📦 Publicar portafolio</span>
+    </button>
+    <a href="admin/index.html" style="display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;border:1px solid var(--border);color:var(--text2);font-size:11px;font-weight:600;text-decoration:none;transition:all .2s;" onmouseover="this.style.borderColor='var(--blue)';this.style.color='var(--blue)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text2)'">
+      ⚙️ Admin
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="pulse"></div>
+    Estrategias Algorítmicas Activas
+  </div>
+  <h1>Portafolio<br>de Estrategias</h1>
+  <p class="hero-sub">
+    Sistemas de trading algorítmico desarrollados, optimizados y validados
+    sobre futuros del S&amp;P 500 y Oro (GC) con NinjaTrader 8.
+  </p>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-cell">
+      <div class="stat-val">4</div>
+      <div class="stat-lbl">Estrategias</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val">$15,604,746</div>
+      <div class="stat-lbl">Profit total backtest</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val">7 años</div>
+      <div class="stat-lbl">Historial máximo</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-val">1 live · 3 en validación</div>
+      <div class="stat-lbl">En producción</div>
+    </div>
+  </div>
+</div>
+
+<!-- STRATEGY CARDS -->
+<div class="grid">
+
+  <!-- ══ DESCARTES 1.0 ══ -->
+  <a class="card" href="descartes/index.html">
+    <div class="card-accent card-accent-green"></div>
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">DESCARTES 1.0</div>
+        <div class="card-tagline">Gana rápido · Arriesga poco · Pierde poco</div>
+      </div>
+      <div class="badge badge-live"><div class="pulse"></div>EN VIVO</div>
+    </div>
+
+    <div class="card-info-row">
+      <div class="info-chip">
+        <div class="info-chip-lbl">Instrumento</div>
+        <div class="info-chip-val green">ES / MES</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Timeframe</div>
+        <div class="info-chip-val">1 min</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Modo</div>
+        <div class="info-chip-val">Long Only</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Período</div>
+        <div class="info-chip-val">2018 – 2025</div>
+      </div>
+    </div>
+
+    <div class="card-desc">
+      Triple confirmación <strong style="color:var(--text)">VWAP + EMA18 + EMA40</strong>. Opera solo compras cuando el bias es alcista. Escala contratos automáticamente según capital y objetivo de profit por trade. Walk Forward Analysis valida que no hay overfitting: solo 2.4% de degradación fuera de muestra.
+    </div>
+
+    <div class="kpi-block">
+      <div class="kpi-item">
+        <div class="kpi-lbl">Net Profit</div>
+        <div class="kpi-val kv-green">$102,382</div>
+        <div class="kpi-sub">7.75 años · ES · 1 contrato</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Win Rate</div>
+        <div class="kpi-val kv-green">89.67%</div>
+        <div class="kpi-sub">5,798 / 6,466 trades</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Max Drawdown</div>
+        <div class="kpi-val kv-red">–$1,609</div>
+        <div class="kpi-sub">1.57% del profit</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit Factor</div>
+        <div class="kpi-val kv-gold">2.58×</div>
+        <div class="kpi-sub">$167K bruto ganado</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Holdout 2023–2025</div>
+        <div class="kpi-val kv-blue">Pendiente</div>
+        <div class="kpi-sub">Out-of-sample final</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit / Mes</div>
+        <div class="kpi-val kv-green">~$810</div>
+        <div class="kpi-sub">Neto · comisión Apex real</div>
+      </div>
+    </div>
+
+    <div class="wr-section">
+      <div class="wr-header">
+        <span>Win Rate</span>
+        <strong>89.67%</strong>
+      </div>
+      <div class="wr-track">
+        <div class="wr-fill wr-fill-green" style="width:0%" data-w="87.6"></div>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <div class="card-period">Backtest: 01 Ene 2018 → 13 Oct 2025 · ES · 1 min · CME ETH · Apex $2.09/side</div>
+      <div class="card-cta">Ver detalles →</div>
+    </div>
+  </a>
+
+  <!-- ══ EVOLUTION 1.0 ══ -->
+  <a class="card" href="evolution/index.html">
+    <div class="card-accent card-accent-blue"></div>
+
+    <div class="card-head">
+      <div>
+        <div class="card-title">EVOLUTION 1.0</div>
+        <div class="card-tagline">Adaptive institutional execution for trend and range regimes</div>
+      </div>
+      <div class="badge badge-orange">🔧 EN REPARACIÓN</div>
+    </div>
+
+    <div class="card-info-row">
+      <div class="info-chip">
+        <div class="info-chip-lbl">Instrumento</div>
+        <div class="info-chip-val blue">ES / MES</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Timeframe</div>
+        <div class="info-chip-val">1 min</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Modo</div>
+        <div class="info-chip-val">Trend + Range</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Período</div>
+        <div class="info-chip-val">2018 – 2025</div>
+      </div>
+    </div>
+
+    <div class="card-desc">
+      Motor de ejecución institucional híbrido. Detecta el régimen del mercado y aplica lógica distinta: <strong style="color:var(--text)">Trend Mode</strong> (breakouts estructurales, R:R 3:1) y <strong style="color:var(--text)">Range Mode</strong> (rebotes en extremos + Sweep Recovery, R:R 1.8:1). El edge no viene de indicadores — viene de contexto estructural y timing institucional.
+    </div>
+
+    <div class="kpi-block">
+      <div class="kpi-item">
+        <div class="kpi-lbl">Net Profit</div>
+        <div class="kpi-val kv-green">$970.34</div>
+        <div class="kpi-sub">7.75 años · ES · 1 contrato MES</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Win Rate</div>
+        <div class="kpi-val kv-blue">54.03%</div>
+        <div class="kpi-sub">114 / 211 trades</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Max Drawdown</div>
+        <div class="kpi-val kv-red">–$43.26</div>
+        <div class="kpi-sub">4.46% del profit</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit Factor</div>
+        <div class="kpi-val kv-gold">5.09×</div>
+        <div class="kpi-sub">Excepcional · com. Apex incluidas</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Ratio W / L</div>
+        <div class="kpi-val kv-blue">4.24×</div>
+        <div class="kpi-sub">$10.59 win · –$2.50 loss</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">WFA Degradación</div>
+        <div class="kpi-val kv-purple">16%</div>
+        <div class="kpi-sub">PASS ✓ &lt; 30% umbral</div>
+      </div>
+    </div>
+
+    <div class="wr-section">
+      <div class="wr-header">
+        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— PF 5.09× + Ratio 4.24× = edge sólido</span></span>
+        <strong>54.03%</strong>
+      </div>
+      <div class="wr-track">
+        <div class="wr-fill wr-fill-orange" style="width:0%" data-w="54.03"></div>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <div class="card-period">Backtest: 01 Ene 2018 → 13 Oct 2025 · ES · 1 min · CME ETH · Apex $2.09/side</div>
+      <div class="card-cta">Ver detalles →</div>
+    </div>
+  </a>
+
+  <!-- ══ HELIOS 1.2 ══ -->
+  <a class="card" href="helios/index.html">
+    <div class="card-accent card-accent-gold"></div>
+
+    <div class="card-head">
+      <div>
+        <div class="card-title" style="color:var(--gold);">HELIOS 1.0</div>
+        <div class="card-tagline">London Gold · 5 Pilares · Bias Institucional Alcista</div>
+      </div>
+      <div class="badge badge-gold">✅ WFA PASS</div>
+    </div>
+
+    <div class="card-info-row">
+      <div class="info-chip">
+        <div class="info-chip-lbl">Instrumento</div>
+        <div class="info-chip-val gold">GC (Oro)</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Timeframe</div>
+        <div class="info-chip-val">5 min</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Modo</div>
+        <div class="info-chip-val">Long Only</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Sesión</div>
+        <div class="info-chip-val">Londres 5:45–8:30 AM</div>
+      </div>
+    </div>
+
+    <div class="card-desc">
+      Cinco pilares de confirmación: <strong style="color:var(--gold)">EMA Stack (11/29/50) + VWAP Londres + CCI + RSI + Volumen</strong>. Opera exclusivamente durante la ventana post-LBMA Fix donde los bancos centrales y bullion banks tienen máxima convicción. R:R 3.63:1 · Bias Flip Exit · Circuit Breaker · Sin trailing stop.
+    </div>
+
+    <div class="kpi-block">
+      <div class="kpi-item">
+        <div class="kpi-lbl">Net Profit</div>
+        <div class="kpi-val kv-gold">$18,589</div>
+        <div class="kpi-sub">7.75 años · MGC · 5 min · 1 contrato</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Win Rate</div>
+        <div class="kpi-val kv-gold">58.03%</div>
+        <div class="kpi-sub">744 / 1,282 trades</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Max Drawdown</div>
+        <div class="kpi-val kv-red">–$143</div>
+        <div class="kpi-sub">0.77% del profit · controlado</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit Factor</div>
+        <div class="kpi-val kv-gold">5.93×</div>
+        <div class="kpi-sub">Excepcional · WFA Verificado</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">WFA OOS</div>
+        <div class="kpi-val kv-green">PASS ✓</div>
+        <div class="kpi-sub">PF OOS 8.02× · +113% vs IS</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit / Mes</div>
+        <div class="kpi-val kv-gold">~$200</div>
+        <div class="kpi-sub">Neto · comisión Apex embebida</div>
+      </div>
+    </div>
+
+    <div class="wr-section">
+      <div class="wr-header">
+        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— 58% WR + PF 5.93× = edge institucional sólido</span></span>
+        <strong>58.03%</strong>
+      </div>
+      <div class="wr-track">
+        <div class="wr-fill wr-fill-gold" style="width:0%" data-w="58.03"></div>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <div class="card-period">Backtest: 01 Ene 2018 → 13 Oct 2025 · MGC · 5 min · Nymex ETH · WFA PASS IS→OOS</div>
+      <div class="card-cta">Ver detalles →</div>
+    </div>
+  </a>
+
+
+  <!-- ══ PANZER GOLD ══ -->
+  <a class="card" href="panzer/index.html">
+    <div class="card-accent card-accent-orange"></div>
+
+    <div class="card-head">
+      <div>
+        <div class="card-title" style="color:var(--orange);">PANZER GOLD</div>
+        <div class="card-tagline">London ORB · Breakout Apertura · Long Only · 3:00–3:20 AM ET</div>
+      </div>
+      <div class="badge badge-orange">⚙️ EN VALIDACIÓN</div>
+    </div>
+
+    <div class="card-info-row">
+      <div class="info-chip">
+        <div class="info-chip-lbl">Instrumento</div>
+        <div class="info-chip-val" style="color:var(--orange);">GC (Oro)</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Timeframe</div>
+        <div class="info-chip-val">1 min</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Modo</div>
+        <div class="info-chip-val">Long Only</div>
+      </div>
+      <div class="info-chip">
+        <div class="info-chip-lbl">Sesión</div>
+        <div class="info-chip-val">Londres 3:00–10:00 AM</div>
+      </div>
+    </div>
+
+    <div class="card-desc">
+      <strong style="color:var(--orange)">ORB (Opening Range Breakout)</strong> sobre GC. Define el rango 3:00–3:20 AM ET y entra long en el breakout confirmado por <strong style="color:var(--text)">EMA 12/21/200 + RSI &lt;65 + Volumen + SMA50 diaria</strong>. TP=1× rango · SL=2× rango · Daily Loss Guard · Máx. 5 trades/día. Walk Forward Analysis en curso.
+    </div>
+
+    <div class="kpi-block">
+      <div class="kpi-item">
+        <div class="kpi-lbl">Net Profit</div>
+        <div class="kpi-val" style="color:var(--orange);">$18,392</div>
+        <div class="kpi-sub">7.75 años · GC · 1 contrato</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Win Rate</div>
+        <div class="kpi-val" style="color:var(--orange);">87.17%</div>
+        <div class="kpi-sub">1,250 / 1,434 trades</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Max Drawdown</div>
+        <div class="kpi-val kv-red">–$79.98</div>
+        <div class="kpi-sub">0.43% del profit</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit Factor</div>
+        <div class="kpi-val kv-gold">15.63×</div>
+        <div class="kpi-sub">Comisión embebida · WFA pendiente</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Walk Forward</div>
+        <div class="kpi-val" style="color:var(--orange);">Pendiente</div>
+        <div class="kpi-sub">IS/OOS en curso</div>
+      </div>
+      <div class="kpi-item">
+        <div class="kpi-lbl">Profit / Mes</div>
+        <div class="kpi-val" style="color:var(--orange);">$197.94</div>
+        <div class="kpi-sub">Promedio · 1 contrato GC</div>
+      </div>
+    </div>
+
+    <div class="wr-section">
+      <div class="wr-header">
+        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— ORB London Gold · Solo Longs</span></span>
+        <strong>87.17%</strong>
+      </div>
+      <div class="wr-track">
+        <div class="wr-fill wr-fill-panzer" style="width:0%" data-w="87.17"></div>
+      </div>
+    </div>
+
+    <div class="card-foot">
+      <div class="card-period">Backtest: 01 Ene 2018 → 13 Oct 2025 · GC · 1 min · Nymex ETH · WFA pendiente</div>
+      <div class="card-cta">Ver detalles →</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- CALCULATOR CTA -->
+<div style="max-width:1300px;margin:0 auto 40px;padding:0 40px;">
+  <a href="calculadora.html" style="
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    background:linear-gradient(135deg, rgba(0,229,160,.07) 0%, rgba(77,159,255,.05) 100%);
+    border:1px solid rgba(0,229,160,.2); border-radius:20px;
+    padding:28px 36px; text-decoration:none; color:inherit;
+    transition:all .25s; overflow:hidden; position:relative;
+  " onmouseover="this.style.borderColor='rgba(0,229,160,.45)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 16px 48px rgba(0,0,0,.4)'"
+     onmouseout="this.style.borderColor='rgba(0,229,160,.2)';this.style.transform='';this.style.boxShadow=''">
+    <div style="position:absolute;top:-20px;right:-20px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.07) 0%,transparent 70%);pointer-events:none;"></div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <div style="width:54px;height:54px;border-radius:14px;background:rgba(0,229,160,.12);border:1px solid rgba(0,229,160,.25);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🧮</div>
+      <div>
+        <div style="font-size:18px;font-weight:900;letter-spacing:-.4px;margin-bottom:5px;">Calculadora de Ingresos Interactiva</div>
+        <div style="font-size:13px;color:var(--text2);line-height:1.5;">Proyecta tus ingresos mensuales combinando las 4 estrategias · Ajusta contratos con sliders · Modo Apex Trader Funding incluido</div>
+      </div>
+    </div>
+    <div style="flex-shrink:0;display:flex;align-items:center;gap:8px;background:var(--green);color:#000;font-size:13px;font-weight:800;padding:12px 24px;border-radius:10px;letter-spacing:.2px;">
+      Abrir Calculadora →
+    </div>
+  </a>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="compare">
+  <div class="compare-title">Comparativa de estrategias</div>
+  <div class="compare-grid">
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Net Profit</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$102,382</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">$970</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$18,589</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">$18,392</div></div>
+      </div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Profit Factor</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-gold">2.58×</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-gold">5.09×</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">5.93×</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num kv-gold">15.63×*</div></div>
+      </div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Win Rate</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">89.67%</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">54.03%</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">58.03%</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">87.17%</div></div>
+      </div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Max Drawdown</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-red">–$2,399</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-red">–$43</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-red">–$143</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num kv-red">–$80</div></div>
+      </div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Trades totales</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num">7,403</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num">211</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num">1,282</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num">1,434</div></div>
+      </div>
+    </div>
+
+    <div class="cmp-row">
+      <div class="cmp-lbl">Profit / Mes</div>
+      <div class="cmp-vals">
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$810</div></div>
+        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">$10.47</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$200</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">$197.94</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.wr-fill[data-w]').forEach(bar => {
+      bar.style.width = bar.dataset.w + '%';
+    });
+  }, 200);
+});
+
+/* ── LEER IDB ── */
+function leerIDB(dbName, store, key) {
+  return new Promise(res => {
+    try {
+      const r = indexedDB.open(dbName, 1);
+      r.onerror = () => res(null);
+      r.onupgradeneeded = () => res(null);
+      r.onsuccess = e => {
+        try {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(store)) return res(null);
+          const tx = db.transaction(store, 'readonly');
+          const q  = tx.objectStore(store).get(key);
+          q.onsuccess = () => res(q.result || null);
+          q.onerror   = () => res(null);
+        } catch(ex) { res(null); }
+      };
+    } catch(ex) { res(null); }
+  });
+}
+
+/* ── CREAR SNAPSHOT ── */
+async function crearSnapshot() {
+  const btn = document.getElementById('btn-snapshot');
+  const sp  = document.getElementById('snap-spinner');
+  const lbl = document.getElementById('snap-label');
+  btn.disabled = true; sp.style.display = 'block'; lbl.textContent = 'Recopilando…';
+
+  try {
+    const imgKeys = ['img-nums','img-curve','img-hd1','img-hd2',
+                     'img-wfa-sum','img-is','img-is-curve','img-oos','img-oos-curve'];
+
+    /* ── DESCARTES (localStorage: img_*) ── */
+    lbl.textContent = 'DESCARTES…';
+    const D = {};
+    imgKeys.forEach(k => { const v = localStorage.getItem('img_' + k); if(v) D['img_' + k] = v; });
+    ['holdout_is','holdout_oos','holdout_wfa'].forEach(k => { const v = localStorage.getItem(k); if(v) D[k] = v; });
+
+    /* ── EVOLUTION (localStorage: ev_*) ── */
+    lbl.textContent = 'EVOLUTION…';
+    const E = {};
+    imgKeys.forEach(k => { const v = localStorage.getItem('ev_' + k); if(v) E['ev_' + k] = v; });
+    ['ev_holdout_is','ev_holdout_oos','ev_holdout_wfa'].forEach(k => { const v = localStorage.getItem(k); if(v) E[k] = v; });
+
+    /* ── HELIOS (IndexedDB: helios_imgs) ── */
+    lbl.textContent = 'HELIOS…';
+    const H = {};
+    for (const k of imgKeys) {
+      const v = await leerIDB('helios_imgs', 'imgs', 'he_' + k);
+      if (v) H['he_' + k] = v;
+    }
+
+    /* ── PANZER GOLD (IndexedDB: panzer_imgs) ── */
+    lbl.textContent = 'PANZER GOLD…';
+    const P = {};
+    for (const k of ['img-nums','img-curve','img-is','img-oos']) {
+      const v = await leerIDB('panzer_imgs', 'imgs', 'pg_' + k);
+      if (v) P['pg_' + k] = v;
+    }
+
+    /* ── GENERAR snapshot.js ── */
+    const totalImgs = Object.keys(D).length + Object.keys(E).length + Object.keys(H).length + Object.keys(P).length;
+    lbl.textContent = `Generando (${totalImgs} imágenes)…`;
+
+    const content = JSON.stringify({
+      generado: new Date().toLocaleString('es'),
+      totalImagenes: totalImgs,
+      descartes: D,
+      evolution: E,
+      helios: H,
+      panzer: P
+    }, null, 0);
+
+    const blob = new Blob([content], { type:'text/plain;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = 'snapshot.txt';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    lbl.textContent = `✅ Listo — ${totalImgs} imgs exportadas`;
+    setTimeout(() => { lbl.textContent = '📦 Publicar portafolio'; btn.disabled = false; sp.style.display = 'none'; }, 4000);
+
+  } catch(err) {
+    console.error(err);
+    lbl.textContent = '❌ Error'; btn.disabled = false; sp.style.display = 'none';
+    setTimeout(() => { lbl.textContent = '📦 Publicar portafolio'; }, 3000);
+  }
+}
+</script>
+<style>@keyframes spin{to{transform:rotate(360deg);}}</style>
+</body>
+</html>

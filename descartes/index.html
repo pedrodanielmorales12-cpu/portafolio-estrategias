@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DESCARTES 1.0 — Portafolio</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --bg4:#21262d;
+    --border:#30363d; --green:#00ff9d; --green2:#00c97c;
+    --red:#ff4d4d; --blue:#58a6ff; --gold:#ffd700; --orange:#ff8c00;
+    --text:#e6edf3; --text2:#8b949e; --font:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
+
+  nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 32px;
+      display:flex;align-items:center;justify-content:space-between;height:60px;
+      position:sticky;top:0;z-index:100;}
+  .nav-back{display:flex;align-items:center;gap:8px;color:var(--text2);
+            text-decoration:none;font-size:14px;transition:color .2s;}
+  .nav-back:hover{color:var(--text);}
+  .nav-center{font-size:16px;font-weight:800;color:var(--green);}
+  .nav-badge{background:rgba(0,255,157,.12);border:1px solid var(--green);
+             color:var(--green);font-size:11px;padding:3px 10px;border-radius:20px;
+             display:flex;align-items:center;gap:6px;}
+  .live-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .btn-export{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;
+              background:rgba(0,255,157,.1);border:1px solid rgba(0,255,157,.3);
+              color:var(--green);font-size:12px;font-weight:700;cursor:pointer;
+              font-family:var(--font);transition:all .2s;}
+  .btn-export:hover{background:rgba(0,255,157,.18);border-color:rgba(0,255,157,.5);}
+  .btn-export:active{transform:scale(.97);}
+  .export-spinner{display:none;width:12px;height:12px;border:2px solid rgba(0,255,157,.3);
+                  border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .hero{padding:48px 32px 32px;
+        background:radial-gradient(ellipse at top,rgba(0,255,157,.07) 0%,transparent 70%);}
+  .hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+  .strategy-badge{background:rgba(0,255,157,.1);border:1px solid var(--green);
+                  color:var(--green);font-size:11px;font-weight:700;padding:4px 12px;
+                  border-radius:20px;letter-spacing:1px;text-transform:uppercase;}
+  .hero-name{font-size:48px;font-weight:900;letter-spacing:-2px;margin-top:12px;
+             background:linear-gradient(135deg,#fff 40%,var(--green));
+             -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-tagline{font-size:16px;color:var(--text2);margin-top:8px;font-style:italic;}
+  .hero-right{text-align:right;}
+  .live-account{background:var(--bg3);border:1px solid var(--green);border-radius:12px;padding:16px 20px;}
+  .live-account-title{font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;}
+  .live-account-name{font-size:18px;font-weight:800;margin-top:4px;}
+  .live-account-sub{font-size:12px;color:var(--text2);margin-top:2px;}
+
+  main{max-width:1100px;margin:0 auto;padding:32px;}
+
+  /* TABS */
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+  .tab{padding:10px 20px;font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;
+       border-bottom:2px solid transparent;transition:all .2s;user-select:none;}
+  .tab:hover{color:var(--text);}
+  .tab.active{color:var(--green);border-bottom-color:var(--green);}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+
+  /* SECTION TITLES */
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:1px;
+                 color:var(--text2);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  /* METRIC GRID */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px;}
+  .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+       padding:18px 16px;transition:border-color .2s;}
+  .kpi:hover{border-color:var(--green);}
+  .kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);}
+  .kpi-val{font-size:26px;font-weight:900;margin-top:6px;line-height:1;}
+  .kpi-sub{font-size:11px;color:var(--text2);margin-top:4px;}
+  .green{color:var(--green);}
+  .red{color:var(--red);}
+  .gold{color:var(--gold);}
+  .blue{color:var(--blue);}
+  .orange{color:var(--orange);}
+
+  /* PARAMETERS TABLE */
+  .param-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .param-table th{background:var(--bg3);color:var(--text2);font-size:10px;text-transform:uppercase;
+                  letter-spacing:.5px;padding:10px 16px;text-align:left;font-weight:600;}
+  .param-table td{padding:10px 16px;border-bottom:1px solid var(--border);}
+  .param-table tr:last-child td{border-bottom:none;}
+  .param-table tr:hover td{background:var(--bg3);}
+  .param-name{font-weight:600;color:var(--text);}
+  .param-val{font-weight:700;color:var(--green);font-family:monospace;}
+  .param-desc{color:var(--text2);}
+  .param-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+  .param-section-title{padding:12px 16px;background:var(--bg3);font-size:11px;
+                       font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);
+                       border-bottom:1px solid var(--border);}
+
+  /* LOGIC BOXES */
+  .logic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px;}
+  .logic-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;}
+  .logic-num{font-size:32px;font-weight:900;color:var(--border);line-height:1;}
+  .logic-title{font-size:14px;font-weight:700;color:var(--text);margin-top:6px;}
+  .logic-body{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.6;}
+  .logic-tag{display:inline-block;background:rgba(0,255,157,.1);color:var(--green);
+             font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;}
+
+  /* IMAGES */
+  .img-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:32px;}
+  .img-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .img-card-header{padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--border);
+                   font-size:12px;font-weight:700;color:var(--text2);}
+  /* — Placeholder (sin imagen) — */
+  .img-placeholder{height:220px;display:flex;flex-direction:column;align-items:center;
+                   justify-content:center;gap:12px;cursor:pointer;
+                   border:2px dashed var(--border);margin:16px;border-radius:8px;
+                   transition:border-color .2s,background .2s;}
+  .img-placeholder:hover{border-color:var(--green);background:rgba(0,255,157,.03);}
+  .img-placeholder svg{opacity:.3;}
+  .img-placeholder-text{font-size:12px;color:var(--text2);text-align:center;}
+  .img-placeholder-sub{font-size:10px;color:var(--text2);opacity:.5;text-align:center;margin-top:-4px;}
+  /* — Imagen cargada — */
+  .img-loaded{position:relative;display:none;}
+  .img-loaded img{width:100%;display:block;max-height:320px;object-fit:contain;padding:16px;}
+  .img-loaded-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);
+    display:none;align-items:center;justify-content:center;gap:10px;}
+  .img-loaded:hover .img-loaded-overlay{display:flex;}
+  .btn-img-change{background:var(--green);color:#000;padding:9px 22px;border-radius:8px;
+    font-size:12px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s;}
+  .btn-img-change:hover{opacity:.85;}
+  .btn-img-remove{background:var(--red);color:#fff;padding:9px 22px;border-radius:8px;
+    font-size:12px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s;}
+  .btn-img-remove:hover{opacity:.85;}
+  /* — Panel de datos automático — */
+  .data-panel{display:none;background:var(--bg3);border:1px solid var(--green);
+    border-top:none;border-radius:0 0 10px 10px;padding:16px;animation:fadeIn .2s ease;}
+  .data-panel.visible{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+  .data-panel-title{font-size:11px;text-transform:uppercase;letter-spacing:.5px;
+    color:var(--green);font-weight:700;margin-bottom:12px;}
+  .data-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+  .data-field{display:flex;flex-direction:column;gap:4px;}
+  .data-field label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;}
+  .data-field input{background:var(--bg4);border:1px solid var(--border);border-radius:6px;
+    color:var(--text);font-size:13px;font-weight:600;padding:7px 10px;outline:none;
+    transition:border-color .2s;width:100%;}
+  .data-field input:focus{border-color:var(--green);}
+  .btn-apply{width:100%;background:var(--green);color:#000;font-size:13px;font-weight:800;
+    padding:10px;border:none;border-radius:8px;cursor:pointer;transition:opacity .15s;}
+  .btn-apply:hover{opacity:.85;}
+  .data-saved{font-size:11px;color:var(--green);text-align:center;margin-top:8px;
+    display:none;animation:fadeIn .2s ease;}
+  .data-saved.show{display:block;}
+
+  /* TIMELINE */
+  .timeline{margin-bottom:32px;}
+  .timeline-item{display:flex;gap:16px;margin-bottom:20px;}
+  .timeline-dot{width:12px;height:12px;border-radius:50%;background:var(--green);
+                margin-top:4px;flex-shrink:0;position:relative;}
+  .timeline-dot::after{content:'';position:absolute;top:12px;left:5px;
+                       width:2px;height:calc(100% + 10px);background:var(--border);}
+  .timeline-item:last-child .timeline-dot::after{display:none;}
+  .timeline-date{font-size:11px;color:var(--text2);min-width:80px;}
+  .timeline-text{font-size:13px;color:var(--text);}
+
+  /* APEX STATUS */
+  .apex-card{background:var(--bg2);border:1px solid var(--green);border-radius:16px;
+             padding:24px;margin-bottom:32px;
+             background-image:radial-gradient(ellipse at right,rgba(0,255,157,.05) 0%,transparent 70%);}
+  .apex-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+  .apex-title{font-size:18px;font-weight:800;}
+  .apex-limits{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .apex-limit{background:var(--bg3);border-radius:10px;padding:14px;}
+  .apex-limit-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);}
+  .apex-limit-val{font-size:20px;font-weight:800;margin-top:4px;}
+  .apex-limit-bar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;}
+  .apex-limit-fill{height:100%;border-radius:2px;}
+
+  @media(max-width:640px){
+    main{padding:16px;} .hero{padding:32px 16px 20px;} nav{padding:0 16px;}
+    .hero-name{font-size:32px;} .kpi-grid{grid-template-columns:repeat(2,1fr);}
+    .apex-limits{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">← Portafolio</a>
+  <div class="nav-center">DESCARTES 1.0</div>
+  <div class="nav-right">
+    <div class="nav-badge"><div class="live-dot"></div>EN VIVO</div>
+    <button class="btn-export" onclick="exportarParaCompartir()" id="btn-export">
+      <div class="export-spinner" id="export-spinner"></div>
+      <span id="export-label">📤 Exportar para compartir</span>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="strategy-badge">Estrategia Algorítmica #1</div>
+      <div class="hero-name">DESCARTES 1.0</div>
+      <div class="hero-tagline">Gana rápido · Arriesga poco · Pierde poco</div>
+    </div>
+    <div class="hero-right">
+      <div class="live-account">
+        <div class="live-account-title"><div class="live-dot" style="display:inline-block;margin-right:6px;"></div>Live Trading</div>
+        <div class="live-account-name">APEX-568274-01</div>
+        <div class="live-account-sub">MES JUN26 · CME US Index Futures ETH · 1 min</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">📊 Resumen</div>
+    <div class="tab" onclick="showTab('backtest')">🔬 Backtest</div>
+    <div class="tab" onclick="showTab('wfa')">🔄 Walk Forward</div>
+    <div class="tab" onclick="showTab('logica')">🧠 Lógica</div>
+    <div class="tab" onclick="showTab('params')">⚙️ Parámetros</div>
+    <div class="tab" onclick="showTab('holdout')">🎯 Holdout</div>
+    <div class="tab" onclick="showTab('apex')">🏆 Apex</div>
+  </div>
+
+  <!-- ─── TAB: OVERVIEW ─── -->
+  <div id="tab-overview" class="tab-content active">
+
+    <div class="section-title">Métricas clave · Backtest 2018–2025 · ES · 1 contrato · Apex $2.09/side</div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="kpi-lbl">Net Profit</div>
+        <div class="kpi-val green">$102,382</div>
+        <div class="kpi-sub">7.75 años · 1 contrato</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Win Rate</div>
+        <div class="kpi-val green">89.67%</div>
+        <div class="kpi-sub">5,798 ganados</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Max Drawdown</div>
+        <div class="kpi-val red">–$1,609</div>
+        <div class="kpi-sub">Muy controlado · 1.57% net</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Profit Factor</div>
+        <div class="kpi-val gold">2.58×</div>
+        <div class="kpi-sub">$167K bruto / $65K pérdidas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Total Trades</div>
+        <div class="kpi-val blue">6,466</div>
+        <div class="kpi-sub">~3.30/día promedio</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Holdout 2023–2025</div>
+        <div class="kpi-val green">Pendiente</div>
+        <div class="kpi-sub">Out-of-sample final</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Avg Win</div>
+        <div class="kpi-val green">$28.80</div>
+        <div class="kpi-sub">por trade ganador (ES)</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Avg Loss</div>
+        <div class="kpi-val red">–$97.30</div>
+        <div class="kpi-sub">pero solo 10.3% pierden</div>
+      </div>
+    </div>
+
+    <div class="section-title">Descripción</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px;line-height:1.7;font-size:14px;color:var(--text2);">
+      <p><strong style="color:var(--text)">DESCARTES 1.0</strong> es una estrategia de seguimiento de tendencia intradiaria basada en triple confirmación: <span style="color:var(--green)">VWAP, EMA18 y EMA40</span>. Opera exclusivamente compras (long) cuando el bias del mercado es alcista, buscando entradas de alta probabilidad en el Micro E-mini S&P 500 (MES).</p>
+      <br>
+      <p>El sistema escala el número de contratos automáticamente según el capital disponible y el objetivo de profit por trade. La gestión de riesgo es estricta: cada trade tiene un límite en USD de ganancia y pérdida, y la estrategia se detiene si la pérdida diaria alcanza el límite configurado.</p>
+      <br>
+      <p>El Walk Forward Analysis con ventanas de 365 días in-sample y 90 días out-of-sample demostró que la estrategia <strong style="color:var(--green)">no tiene overfitting</strong>: solo 4.6% de degradación fuera de muestra.</p>
+    </div>
+
+    <div class="section-title">Edge del sistema</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:32px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">📐</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Triple confirmación</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">VWAP + EMA18 + EMA40 — las tres deben alinearse para entrar</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">🎯</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Alta precisión</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">89.67% win rate · 5,798 de 6,466 trades ganadores</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">📈</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Bias alcista</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">Solo opera cuando el mercado tiene momentum positivo claro</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">🛡️</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Riesgo estricto</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">TP y SL fijos por trade · stop diario automático</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">✅</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">WFA validado</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">Solo –4.6% degradación fuera de muestra · sin overfitting</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── TAB: BACKTEST ─── -->
+  <div id="tab-backtest" class="tab-content">
+    <div class="section-title">Resultados detallados · ES · 2018 – 2025 · 1 contrato · Apex $2.09/side</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-lbl">Gross Profit</div><div class="kpi-val green">$166,989</div><div class="kpi-sub">Total ganado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Gross Loss</div><div class="kpi-val red">–$64,607</div><div class="kpi-sub">Total perdido</div></div>
+      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val green">$102,382</div><div class="kpi-sub">Ganancia neta</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val gold">2.58×</div></div>
+      <div class="kpi"><div class="kpi-lbl">Winning Trades</div><div class="kpi-val green">5,798</div><div class="kpi-sub">89.67% del total</div></div>
+      <div class="kpi"><div class="kpi-lbl">Losing Trades</div><div class="kpi-val red">664</div><div class="kpi-sub">10.27% del total</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val red">–$1,609</div><div class="kpi-sub">Solo 1.57% del profit</div></div>
+      <div class="kpi"><div class="kpi-lbl">Avg Bars/Trade</div><div class="kpi-val">14.17</div><div class="kpi-sub">bars de 1 min</div></div>
+      <div class="kpi"><div class="kpi-lbl">Sortino Ratio</div><div class="kpi-val green">5.29</div><div class="kpi-sub">Excelente downside</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit / Mes</div><div class="kpi-val green">$1,099</div><div class="kpi-sub">Bruto · ~$810 neto Apex</div></div>
+      <div class="kpi"><div class="kpi-lbl">Trades / Día</div><div class="kpi-val blue">3.30</div><div class="kpi-sub">promedio</div></div>
+      <div class="kpi"><div class="kpi-lbl">Tiempo en mercado</div><div class="kpi-val">21.4 min</div><div class="kpi-sub">promedio por trade</div></div>
+    </div>
+
+    <div class="section-title">Imágenes del backtest · 2018–2025</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Rendimiento — Números Summary</div>
+        <label class="img-placeholder" id="ph-nums" for="file-nums">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer → Summary ($)</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-nums">
+          <img id="img-nums">
+          <div class="img-loaded-overlay">
+            <label for="file-nums" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-nums','ph-nums','loaded-nums')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-nums" accept="image/*" style="display:none" onchange="loadImg(this,'img-nums','ph-nums','loaded-nums')">
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Curva de rendimiento — Equity Curve</div>
+        <label class="img-placeholder" id="ph-curve" for="file-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer → Cumulative Net Profit</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-curve">
+          <img id="img-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-curve','ph-curve','loaded-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-curve','ph-curve','loaded-curve')">
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: WFA ─── -->
+  <div id="tab-wfa" class="tab-content">
+    <div class="section-title">Holdout Final · In-Sample 2018–2022 · Out-of-Sample 2023–2025</div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(0,255,157,.2);border-radius:12px;padding:20px;margin-bottom:24px;">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;">
+        El <strong style="color:var(--green)">Holdout Final</strong> usa los primeros 5 años (2018–2022) para optimización y los últimos 2.75 años (2023–2025) como datos completamente virgenes — nunca vistos por el optimizer. Si la estrategia mantiene sus métricas fuera de muestra, confirma que el edge es real y no overfitting.
+      </p>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:24px;">
+      <div class="kpi">
+        <div class="kpi-lbl">In-Sample (2018–2022)</div>
+        <div class="kpi-val green" id="kpi-is-pf">Pendiente</div>
+        <div class="kpi-sub" id="kpi-is-sub">Sube la imagen IS para ingresar datos</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Out-of-Sample (2023–2025)</div>
+        <div class="kpi-val blue" id="kpi-oos-pf">Pendiente</div>
+        <div class="kpi-sub" id="kpi-oos-sub">Sube la imagen OOS para ingresar datos</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Degradación PF</div>
+        <div class="kpi-val" id="kpi-deg" style="color:var(--text2);">—</div>
+        <div class="kpi-sub" id="kpi-deg-sub">Objetivo: menos de 20%</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Veredicto</div>
+        <div class="kpi-val" id="kpi-veredicto" style="color:var(--text2);">—</div>
+        <div class="kpi-sub" id="kpi-veredicto-sub">Robusto vs Overfitted</div>
+      </div>
+    </div>
+
+    <div class="section-title">Walk Forward — Resultados consolidados OOS</div>
+    <div class="kpi-grid" style="margin-bottom:16px;">
+      <div class="kpi"><div class="kpi-lbl">Profit Factor OOS</div><div class="kpi-val green" id="kpi-wfa-pf">—</div><div class="kpi-sub" id="kpi-wfa-sub">Sube el Summary WFA para ingresar datos</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate OOS</div><div class="kpi-val" id="kpi-wfa-wr" style="color:var(--text2);">—</div><div class="kpi-sub" id="kpi-wfa-wr-sub">Ventanas out-of-sample</div></div>
+      <div class="kpi"><div class="kpi-lbl">Net Profit OOS</div><div class="kpi-val" id="kpi-wfa-net" style="color:var(--text2);">—</div><div class="kpi-sub" id="kpi-wfa-net-sub">Consolidado todas las ventanas</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val" id="kpi-wfa-dd" style="color:var(--text2);">—</div><div class="kpi-sub" id="kpi-wfa-dd-sub">Peor ventana OOS</div></div>
+    </div>
+
+    <div class="section-title">Walk Forward — Imagen del análisis</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary — Resultados WFA completo</div>
+        <label class="img-placeholder" id="ph-wfa-sum" for="file-wfa-sum">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer → WFA Summary</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-wfa-sum">
+          <img id="img-wfa-sum">
+          <div class="img-loaded-overlay">
+            <label for="file-wfa-sum" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgWFA('img-wfa-sum','ph-wfa-sum','loaded-wfa-sum')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-wfa-sum" accept="image/*" style="display:none" onchange="loadImgWFA(this,'img-wfa-sum','ph-wfa-sum','loaded-wfa-sum')">
+        <div class="data-panel" id="panel-wfa">
+          <div class="data-panel-title">✏️ Ingresa los datos del WFA consolidado</div>
+          <div class="data-fields">
+            <div class="data-field"><label>Net Profit</label><input id="wfa-net" type="text" placeholder="$0"></div>
+            <div class="data-field"><label>Profit Factor</label><input id="wfa-pf" type="number" step="0.01" placeholder="0.00"></div>
+            <div class="data-field"><label>Win Rate</label><input id="wfa-wr" type="text" placeholder="0.00%"></div>
+            <div class="data-field"><label>Max Drawdown</label><input id="wfa-dd" type="text" placeholder="-$0"></div>
+            <div class="data-field"><label>Total Trades</label><input id="wfa-trades" type="number" placeholder="0"></div>
+            <div class="data-field"><label>Profit / Mes</label><input id="wfa-pm" type="text" placeholder="$0"></div>
+          </div>
+          <button class="btn-apply" onclick="applyWFAData()">✓ Aplicar y actualizar KPIs</button>
+          <div class="data-saved" id="saved-wfa">✅ Datos guardados — KPIs actualizados</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">In-Sample 2018–2022</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary · 2018–2022</div>
+        <label class="img-placeholder" id="ph-is" for="file-is">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          <div class="img-placeholder-text">Backtest IS · Ene 2018 → Dic 2022</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-is">
+          <img id="img-is">
+          <div class="img-loaded-overlay">
+            <label for="file-is" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgHoldout('img-is','ph-is','loaded-is','is','panel-is')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-is" accept="image/*" style="display:none" onchange="loadImgHoldout(this,'img-is','ph-is','loaded-is','is','panel-is')">
+        <!-- Panel de datos IS -->
+        <div class="data-panel" id="panel-is">
+          <div class="data-panel-title">✏️ Ingresa los datos del IS</div>
+          <div class="data-fields">
+            <div class="data-field"><label>Net Profit</label><input id="is-net" type="text" placeholder="$0"></div>
+            <div class="data-field"><label>Profit Factor</label><input id="is-pf" type="number" step="0.01" placeholder="0.00"></div>
+            <div class="data-field"><label>Win Rate</label><input id="is-wr" type="text" placeholder="0.00%"></div>
+            <div class="data-field"><label>Max Drawdown</label><input id="is-dd" type="text" placeholder="-$0"></div>
+            <div class="data-field"><label>Total Trades</label><input id="is-trades" type="number" placeholder="0"></div>
+            <div class="data-field"><label>Profit / Mes</label><input id="is-pm" type="text" placeholder="$0"></div>
+          </div>
+          <button class="btn-apply" onclick="applyHoldoutData('is')">✓ Aplicar y actualizar KPIs</button>
+          <div class="data-saved" id="saved-is">✅ Datos guardados — KPIs actualizados</div>
+        </div>
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Equity Curve · 2018–2022</div>
+        <label class="img-placeholder" id="ph-is-curve" for="file-is-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · Ene 2018 → Dic 2022</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-is-curve">
+          <img id="img-is-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-is-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-is-curve','ph-is-curve','loaded-is-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-is-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-is-curve','ph-is-curve','loaded-is-curve')">
+      </div>
+    </div>
+
+    <div class="section-title">Out-of-Sample 2023–2025</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary · 2023–2025</div>
+        <label class="img-placeholder" id="ph-oos" for="file-oos">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <div class="img-placeholder-text">Backtest OOS · Ene 2023 → Oct 2025</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-oos">
+          <img id="img-oos">
+          <div class="img-loaded-overlay">
+            <label for="file-oos" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgHoldout('img-oos','ph-oos','loaded-oos','oos','panel-oos')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-oos" accept="image/*" style="display:none" onchange="loadImgHoldout(this,'img-oos','ph-oos','loaded-oos','oos','panel-oos')">
+        <!-- Panel de datos OOS -->
+        <div class="data-panel" id="panel-oos">
+          <div class="data-panel-title">✏️ Ingresa los datos del OOS</div>
+          <div class="data-fields">
+            <div class="data-field"><label>Net Profit</label><input id="oos-net" type="text" placeholder="$0"></div>
+            <div class="data-field"><label>Profit Factor</label><input id="oos-pf" type="number" step="0.01" placeholder="0.00"></div>
+            <div class="data-field"><label>Win Rate</label><input id="oos-wr" type="text" placeholder="0.00%"></div>
+            <div class="data-field"><label>Max Drawdown</label><input id="oos-dd" type="text" placeholder="-$0"></div>
+            <div class="data-field"><label>Total Trades</label><input id="oos-trades" type="number" placeholder="0"></div>
+            <div class="data-field"><label>Profit / Mes</label><input id="oos-pm" type="text" placeholder="$0"></div>
+          </div>
+          <button class="btn-apply" onclick="applyHoldoutData('oos')">✓ Aplicar y actualizar KPIs</button>
+          <div class="data-saved" id="saved-oos">✅ Datos guardados — KPIs actualizados</div>
+        </div>
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Equity Curve · 2023–2025</div>
+        <label class="img-placeholder" id="ph-oos-curve" for="file-oos-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · Ene 2023 → Oct 2025</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-oos-curve">
+          <img id="img-oos-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-oos-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-oos-curve','ph-oos-curve','loaded-oos-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-oos-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-oos-curve','ph-oos-curve','loaded-oos-curve')">
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:16px;">
+      <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;">Cómo interpretar el resultado</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="text-align:center;padding:12px;background:rgba(0,255,157,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:var(--green);">&lt;10%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:var(--green);margin-top:2px;">✅ Excelente</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:rgba(255,157,0,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:#ff9d00;">10–20%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:#ff9d00;margin-top:2px;">⚠️ Aceptable</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:rgba(255,77,77,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:var(--red);">&gt;20%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:var(--red);margin-top:2px;">❌ Overfitting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: LÓGICA ─── -->
+  <div id="tab-logica" class="tab-content">
+    <div class="section-title">Cómo opera la estrategia</div>
+    <div class="logic-grid">
+      <div class="logic-box">
+        <div class="logic-num">01</div>
+        <div class="logic-title">Bias de mercado</div>
+        <div class="logic-body">Determina si el mercado es alcista usando triple confirmación:<br>• Precio > VWAP<br>• EMA18 > EMA40<br>• VWAP subiendo (pendiente positiva)<br>Solo opera en compras cuando los tres coinciden.</div>
+        <div class="logic-tag">VWAP + EMA18 + EMA40</div>
+      </div>
+      <div class="logic-box">
+        <div class="logic-num">02</div>
+        <div class="logic-title">Señal de entrada</div>
+        <div class="logic-body">Busca una vela de calidad:<br>• Cuerpo mínimo de 2 ticks<br>• Sin posición abierta (1 trade a la vez)<br>• Dentro de horario (8:30–17:00 CT)<br>• No excede el máximo de trades del día</div>
+        <div class="logic-tag">Filtro de calidad</div>
+      </div>
+      <div class="logic-box">
+        <div class="logic-num">03</div>
+        <div class="logic-title">Tamaño de posición</div>
+        <div class="logic-body">Calcula contratos automáticamente:<br>• ProfitTarget en USD / Ticks × TickValue<br>• Sujeto a Min/Max contratos configurados<br>• Para MES: máx 10 contratos (= 1 ES)</div>
+        <div class="logic-tag">Escalado dinámico</div>
+      </div>
+      <div class="logic-box">
+        <div class="logic-num">04</div>
+        <div class="logic-title">Take Profit</div>
+        <div class="logic-body">Objetivo de ganancia configurable:<br>• En ticks: TP_Ticks (default 100)<br>• En USD: ProfitUSDPorTrade ($400)<br>• Coloca límite automáticamente al entrar</div>
+        <div class="logic-tag">Profit Target</div>
+      </div>
+      <div class="logic-box">
+        <div class="logic-num">05</div>
+        <div class="logic-title">Stop Loss</div>
+        <div class="logic-body">Protección de capital:<br>• MaxPerdidaUSDTrade = $300<br>• Calcula ticks dinámicamente (1 contrato MES)<br>• Trailing Stop de 4 ticks adicional<br>• SL_Ticks fijo como alternativa (0=auto)</div>
+        <div class="logic-tag">Risk Management</div>
+      </div>
+      <div class="logic-box">
+        <div class="logic-num">06</div>
+        <div class="logic-title">Exit por bias flip</div>
+        <div class="logic-body">Sale cuando el mercado cambia de dirección:<br>• Espera mínimo 8 barras en trade<br>• Necesita al menos 6 ticks de ganancia<br>• Trailing Stop activo mientras espera<br>• Protege ganancias antes del flip</div>
+        <div class="logic-tag">Bias Flip Exit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── TAB: PARAMS ─── -->
+  <div id="tab-params" class="tab-content">
+    <div class="section-title">Parámetros configurados · Versión live (APEX)</div>
+
+    <div class="param-section">
+      <div class="param-section-title">🕐 Sesión</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">HoraInicio</td><td class="param-val">830</td><td class="param-desc">08:30 CT — inicio de sesión</td></tr>
+          <tr><td class="param-name">HoraFin</td><td class="param-val">1700</td><td class="param-desc">17:00 CT — cierre de sesión</td></tr>
+          <tr><td class="param-name">MaxTradesPorDia</td><td class="param-val">10</td><td class="param-desc">Máximo de operaciones por día</td></tr>
+          <tr><td class="param-name">HabilitarCompras</td><td class="param-val">true</td><td class="param-desc">Solo opera en dirección alcista</td></tr>
+          <tr><td class="param-name">HabilitarVentas</td><td class="param-val">false</td><td class="param-desc">Shorts deshabilitados</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">💰 Risk Management</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">TP_Ticks</td><td class="param-val">100</td><td class="param-desc">100 ticks = 25 puntos = $125/contrato MES</td></tr>
+          <tr><td class="param-name">SL_Ticks</td><td class="param-val">0</td><td class="param-desc">0 = calcula SL por USD automáticamente</td></tr>
+          <tr><td class="param-name">ProfitUSDPorTrade</td><td class="param-val">$400</td><td class="param-desc">Target de ganancia en dólares</td></tr>
+          <tr><td class="param-name">MaxPerdidaUSDTrade</td><td class="param-val">$300</td><td class="param-desc">Máximo a perder por trade · 1 contrato MES</td></tr>
+          <tr><td class="param-name">DailyLossUSD</td><td class="param-val">$1,700</td><td class="param-desc">Stop diario ($300 buffer antes del límite Apex)</td></tr>
+          <tr><td class="param-name">MinContratos</td><td class="param-val">1</td><td class="param-desc">Mínimo 1 contrato</td></tr>
+          <tr><td class="param-name">MaxContratos</td><td class="param-val">10</td><td class="param-desc">Máximo 10 MES = equivale a 1 ES</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">🎯 Calidad de entrada y salida</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">CuerpoMinTicks</td><td class="param-val">2</td><td class="param-desc">Cuerpo mínimo de vela para entrar</td></tr>
+          <tr><td class="param-name">MaxBarrasSetup</td><td class="param-val">5</td><td class="param-desc">Máx. barras de espera para setup</td></tr>
+          <tr><td class="param-name">MinBarrasAntesExitBias</td><td class="param-val">8</td><td class="param-desc">Mínimo 8 barras en trade antes de salir por bias</td></tr>
+          <tr><td class="param-name">MinTicksAntesExitBias</td><td class="param-val">6</td><td class="param-desc">Necesita ≥6 ticks de ganancia para salir por bias</td></tr>
+          <tr><td class="param-name">TrailingStopTicks</td><td class="param-val">4</td><td class="param-desc">Trailing stop de 4 ticks mientras está en trade</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── TAB: HOLDOUT ─── -->
+  <div id="tab-holdout" class="tab-content">
+
+    <div class="section-title">Holdout Final — Datos completamente no vistos</div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(0,255,157,.2);border-radius:12px;padding:24px;margin-bottom:28px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+        <span style="font-size:26px;">🔒</span>
+        <div style="font-size:15px;font-weight:800;color:var(--green);">¿Qué es el Holdout Final?</div>
+      </div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+        <p>El <strong style="color:var(--text)">Holdout Final</strong> es el test de validación más estricto. Es un bloque de datos que fue <strong style="color:var(--green)">completamente aislado desde el inicio</strong> — la estrategia nunca vio estos datos durante el desarrollo, la optimización, ni el Walk Forward.</p>
+        <br>
+        <p>A diferencia del WFA (ventanas rodantes), el holdout es un <strong style="color:var(--text)">período fijo reservado al final del historial</strong>. Si la estrategia funciona igual de bien aquí, confirma que el edge es genuino y no producto de curve fitting.</p>
+      </div>
+    </div>
+
+    <div class="section-title">Métricas del Holdout · Pendiente de ejecución</div>
+    <div class="kpi-grid" style="opacity:.5;pointer-events:none;">
+      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">Período holdout</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">Datos no vistos</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">Edge real</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">Riesgo holdout</div></div>
+      <div class="kpi"><div class="kpi-lbl">Total Trades</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">Muestra holdout</div></div>
+      <div class="kpi"><div class="kpi-lbl">Degradación vs BT</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">%  vs backtest</div></div>
+    </div>
+
+    <div style="background:var(--bg2);border:2px dashed var(--border);border-radius:12px;padding:36px;text-align:center;margin-bottom:28px;">
+      <div style="font-size:40px;margin-bottom:14px;">⏳</div>
+      <div style="font-size:16px;font-weight:700;color:var(--text);">Test pendiente de ejecución</div>
+      <div style="font-size:13px;color:var(--text2);margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.7;">
+        Ejecuta el Strategy Analyzer sobre el período <strong style="color:var(--text)">posterior a Oct 2025</strong> (datos no incluidos en el backtest de entrenamiento) y carga aquí los resultados. Este es el sello final de validación de la estrategia.
+      </div>
+    </div>
+
+    <div class="section-title">Imágenes del Holdout</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Performance — Período Holdout</div>
+        <label class="img-placeholder" id="ph-hd1" for="file-hd1">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer — holdout period</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-hd1">
+          <img id="img-hd1">
+          <div class="img-loaded-overlay">
+            <label for="file-hd1" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-hd1','ph-hd1','loaded-hd1')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-hd1" accept="image/*" style="display:none" onchange="loadImg(this,'img-hd1','ph-hd1','loaded-hd1')">
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Equity Curve — Holdout</div>
+        <label class="img-placeholder" id="ph-hd2" for="file-hd2">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div class="img-placeholder-text">Equity curve del período holdout</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-hd2">
+          <img id="img-hd2">
+          <div class="img-loaded-overlay">
+            <label for="file-hd2" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-hd2','ph-hd2','loaded-hd2')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-hd2" accept="image/*" style="display:none" onchange="loadImg(this,'img-hd2','ph-hd2','loaded-hd2')">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ─── TAB: APEX ─── -->
+  <div id="tab-apex" class="tab-content">
+    <div class="section-title">Estado de la evaluación Apex Trader Funding</div>
+
+    <div class="apex-card">
+      <div class="apex-header">
+        <div>
+          <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.5px;">🏆 Apex $100K Evaluation</div>
+          <div class="apex-title">APEX-568274-01</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:4px;">MES JUN26 · Rithmic · CME Globex</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:11px;color:var(--text2);">Estrategia activa</div>
+          <div style="font-size:18px;font-weight:800;color:var(--green);">DESCARTES 1.0</div>
+        </div>
+      </div>
+      <div class="apex-limits">
+        <div class="apex-limit">
+          <div class="apex-limit-lbl">Daily Loss Limit</div>
+          <div class="apex-limit-val red">$2,000</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Bot para a $1,700 (buffer $300)</div>
+          <div class="apex-limit-bar"><div class="apex-limit-fill" style="width:85%;background:var(--green)"></div></div>
+        </div>
+        <div class="apex-limit">
+          <div class="apex-limit-lbl">Trailing Drawdown</div>
+          <div class="apex-limit-val orange">$5,000</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Max drawdown permitido</div>
+          <div class="apex-limit-bar"><div class="apex-limit-fill" style="width:48%;background:var(--orange)"></div></div>
+        </div>
+        <div class="apex-limit">
+          <div class="apex-limit-lbl">Profit Target</div>
+          <div class="apex-limit-val gold">$6,000</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Para pasar la evaluación</div>
+          <div class="apex-limit-bar"><div class="apex-limit-fill" style="width:0%;background:var(--gold)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Proyección para pasar la evaluación</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-lbl">Profit por trade</div><div class="kpi-val green">$125</div><div class="kpi-sub">100 ticks × 3 MES</div></div>
+      <div class="kpi"><div class="kpi-lbl">Trades/día avg</div><div class="kpi-val">~3–4</div><div class="kpi-sub">días activos</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit semanal est.</div><div class="kpi-val green">~$750</div><div class="kpi-sub">5 días × 3 trades × 50% hit</div></div>
+      <div class="kpi"><div class="kpi-lbl">Semanas para pasar</div><div class="kpi-val gold">~8</div><div class="kpi-sub">con 3 contratos MES</div></div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ══════════════════════════════════════════════════════
+   SISTEMA DE IMÁGENES
+══════════════════════════════════════════════════════ */
+function loadImg(input, imgId, phId, loadedId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    try { localStorage.setItem('img_' + imgId, e.target.result); } catch(ex){}
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+function setImg(imgId, phId, loadedId, src) {
+  const img    = document.getElementById(imgId);
+  const ph     = document.getElementById(phId);
+  const loaded = document.getElementById(loadedId);
+  if (!img || !ph || !loaded) return;
+  img.src = src;
+  ph.style.display     = 'none';
+  loaded.style.display = 'block';
+}
+
+function removeImg(imgId, phId, loadedId) {
+  const img    = document.getElementById(imgId);
+  const ph     = document.getElementById(phId);
+  const loaded = document.getElementById(loadedId);
+  if (!img || !ph || !loaded) return;
+  img.src = '';
+  loaded.style.display = 'none';
+  ph.style.display     = 'flex';
+  try { localStorage.removeItem('img_' + imgId); } catch(ex){}
+}
+
+/* ══════════════════════════════════════════════════════
+   SISTEMA DE DATOS HOLDOUT (IS / OOS → KPIs automáticos)
+══════════════════════════════════════════════════════ */
+
+// Carga imagen IS u OOS y abre el panel de datos
+function loadImgHoldout(input, imgId, phId, loadedId, period, panelId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    try { localStorage.setItem('img_' + imgId, e.target.result); } catch(ex){}
+    // Abrir panel de datos
+    const panel = document.getElementById(panelId);
+    if (panel) { panel.classList.add('visible'); panel.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+    // Pre-rellenar si hay datos guardados
+    restoreDataFields(period);
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+// Quita imagen Y limpia datos del período
+function removeImgHoldout(imgId, phId, loadedId, period, panelId) {
+  removeImg(imgId, phId, loadedId);
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.remove('visible');
+  // Limpiar campos
+  ['net','pf','wr','dd','trades','pm'].forEach(f => {
+    const el = document.getElementById(period + '-' + f);
+    if (el) el.value = '';
+  });
+  try { localStorage.removeItem('holdout_' + period); } catch(ex){}
+  // Resetear KPIs
+  updateKPIs();
+}
+
+// Aplica los datos ingresados y actualiza los KPIs
+function applyHoldoutData(period) {
+  const data = {
+    net:    document.getElementById(period + '-net')?.value    || '',
+    pf:     document.getElementById(period + '-pf')?.value     || '',
+    wr:     document.getElementById(period + '-wr')?.value     || '',
+    dd:     document.getElementById(period + '-dd')?.value     || '',
+    trades: document.getElementById(period + '-trades')?.value || '',
+    pm:     document.getElementById(period + '-pm')?.value     || '',
+  };
+  try { localStorage.setItem('holdout_' + period, JSON.stringify(data)); } catch(ex){}
+  updateKPIs();
+  // Mostrar confirmación
+  const saved = document.getElementById('saved-' + period);
+  if (saved) {
+    saved.classList.add('show');
+    setTimeout(() => saved.classList.remove('show'), 3000);
+  }
+}
+
+// Pre-rellena los campos desde localStorage
+function restoreDataFields(period) {
+  try {
+    const raw = localStorage.getItem('holdout_' + period);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    Object.entries(data).forEach(([key, val]) => {
+      const el = document.getElementById(period + '-' + key);
+      if (el) el.value = val;
+    });
+  } catch(ex){}
+}
+
+// Actualiza los 4 KPIs del Holdout + calcula degradación y veredicto
+function updateKPIs() {
+  let isData = null, oosData = null;
+  try { isData  = JSON.parse(localStorage.getItem('holdout_is')  || 'null'); } catch(ex){}
+  try { oosData = JSON.parse(localStorage.getItem('holdout_oos') || 'null'); } catch(ex){}
+
+  const $ = id => document.getElementById(id);
+
+  // IS
+  if (isData && isData.pf) {
+    $('kpi-is-pf').textContent = 'PF ' + parseFloat(isData.pf).toFixed(2) + '×';
+    $('kpi-is-pf').style.color = 'var(--green)';
+    $('kpi-is-sub').textContent =
+      (isData.wr  ? 'WR ' + isData.wr + ' · ' : '') +
+      (isData.net ? isData.net : '') +
+      (isData.trades ? ' · ' + Number(isData.trades).toLocaleString() + ' trades' : '');
+  } else {
+    $('kpi-is-pf').textContent = 'Pendiente';
+    $('kpi-is-pf').style.color = 'var(--green)';
+    $('kpi-is-sub').textContent = 'Sube la imagen IS para ingresar datos';
+  }
+
+  // OOS
+  if (oosData && oosData.pf) {
+    $('kpi-oos-pf').textContent = 'PF ' + parseFloat(oosData.pf).toFixed(2) + '×';
+    $('kpi-oos-pf').style.color = 'var(--blue)';
+    $('kpi-oos-sub').textContent =
+      (oosData.wr  ? 'WR ' + oosData.wr + ' · ' : '') +
+      (oosData.net ? oosData.net : '') +
+      (oosData.trades ? ' · ' + Number(oosData.trades).toLocaleString() + ' trades' : '');
+  } else {
+    $('kpi-oos-pf').textContent = 'Pendiente';
+    $('kpi-oos-pf').style.color = 'var(--blue)';
+    $('kpi-oos-sub').textContent = 'Sube la imagen OOS para ingresar datos';
+  }
+
+  // Degradación + Veredicto (solo si tenemos ambos PFs)
+  if (isData && oosData && isData.pf && oosData.pf) {
+    const pfIS  = parseFloat(isData.pf);
+    const pfOOS = parseFloat(oosData.pf);
+    const deg   = ((pfIS - pfOOS) / pfIS) * 100;
+    const degEl = $('kpi-deg');
+    degEl.textContent = deg.toFixed(1) + '%';
+
+    const verdEl    = $('kpi-veredicto');
+    const verdSub   = $('kpi-veredicto-sub');
+    const degSub    = $('kpi-deg-sub');
+
+    if (deg < 0) {
+      // OOS > IS: estrategia mejor en datos nuevos
+      degEl.style.color = 'var(--green)';
+      verdEl.textContent = '🚀 Excepcional';
+      verdEl.style.color = 'var(--green)';
+      verdSub.textContent = 'OOS supera al IS — edge muy robusto';
+      degSub.textContent = 'El OOS es mejor que el IS';
+    } else if (deg < 10) {
+      degEl.style.color = 'var(--green)';
+      verdEl.textContent = '✅ Robusto';
+      verdEl.style.color = 'var(--green)';
+      verdSub.textContent = 'Degradación < 10% — sin overfitting';
+      degSub.textContent = 'Excelente · objetivo < 10%';
+    } else if (deg < 20) {
+      degEl.style.color = 'var(--orange)';
+      verdEl.textContent = '⚠️ Aceptable';
+      verdEl.style.color = 'var(--orange)';
+      verdSub.textContent = 'Degradación 10-20% — edge moderado';
+      degSub.textContent = 'Aceptable · objetivo < 10%';
+    } else {
+      degEl.style.color = 'var(--red)';
+      verdEl.textContent = '❌ Overfitting';
+      verdEl.style.color = 'var(--red)';
+      verdSub.textContent = 'Degradación > 20% — revisar parámetros';
+      degSub.textContent = 'Crítico · objetivo < 20%';
+    }
+  } else {
+    $('kpi-deg').textContent = '—';
+    $('kpi-deg').style.color = 'var(--text2)';
+    $('kpi-veredicto').textContent = '—';
+    $('kpi-veredicto').style.color = 'var(--text2)';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   SISTEMA WFA SUMMARY
+══════════════════════════════════════════════════════ */
+function loadImgWFA(input, imgId, phId, loadedId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    try { localStorage.setItem('img_' + imgId, e.target.result); } catch(ex){}
+    const panel = document.getElementById('panel-wfa');
+    if (panel) { panel.classList.add('visible'); panel.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
+    restoreWFAFields();
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function removeImgWFA(imgId, phId, loadedId) {
+  removeImg(imgId, phId, loadedId);
+  const panel = document.getElementById('panel-wfa');
+  if (panel) panel.classList.remove('visible');
+  ['net','pf','wr','dd','trades','pm'].forEach(f => {
+    const el = document.getElementById('wfa-' + f);
+    if (el) el.value = '';
+  });
+  try { localStorage.removeItem('holdout_wfa'); } catch(ex){}
+  updateWFAKPIs();
+}
+function applyWFAData() {
+  const data = {
+    net:    document.getElementById('wfa-net')?.value    || '',
+    pf:     document.getElementById('wfa-pf')?.value     || '',
+    wr:     document.getElementById('wfa-wr')?.value     || '',
+    dd:     document.getElementById('wfa-dd')?.value     || '',
+    trades: document.getElementById('wfa-trades')?.value || '',
+    pm:     document.getElementById('wfa-pm')?.value     || '',
+  };
+  try { localStorage.setItem('holdout_wfa', JSON.stringify(data)); } catch(ex){}
+  updateWFAKPIs();
+  const saved = document.getElementById('saved-wfa');
+  if (saved) { saved.classList.add('show'); setTimeout(() => saved.classList.remove('show'), 3000); }
+}
+function restoreWFAFields() {
+  try {
+    const raw = localStorage.getItem('holdout_wfa');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    ['net','pf','wr','dd','trades','pm'].forEach(f => {
+      const el = document.getElementById('wfa-' + f);
+      if (el && d[f] !== undefined) el.value = d[f];
+    });
+  } catch(ex){}
+}
+function updateWFAKPIs() {
+  let d = null;
+  try { d = JSON.parse(localStorage.getItem('holdout_wfa') || 'null'); } catch(ex){}
+  const $ = id => document.getElementById(id);
+  if (d && d.pf) {
+    $('kpi-wfa-pf').textContent  = 'PF ' + parseFloat(d.pf).toFixed(2) + '×';
+    $('kpi-wfa-pf').style.color  = 'var(--green)';
+    $('kpi-wfa-sub').textContent = (d.wr ? 'WR ' + d.wr + ' · ' : '') + (d.trades ? Number(d.trades).toLocaleString() + ' trades' : '');
+    $('kpi-wfa-wr').textContent  = d.wr  ? d.wr + '%' : '—';
+    $('kpi-wfa-wr').style.color  = d.wr  ? 'var(--green)' : 'var(--text2)';
+    $('kpi-wfa-net').textContent = d.net ? d.net : '—';
+    $('kpi-wfa-net').style.color = d.net ? 'var(--green)' : 'var(--text2)';
+    $('kpi-wfa-dd').textContent  = d.dd  ? d.dd  : '—';
+    $('kpi-wfa-dd').style.color  = d.dd  ? 'var(--red)'   : 'var(--text2)';
+  } else {
+    ['kpi-wfa-pf','kpi-wfa-wr','kpi-wfa-net','kpi-wfa-dd'].forEach(id => {
+      const el = $(id); if (el) { el.textContent = '—'; el.style.color = 'var(--text2)'; }
+    });
+    if ($('kpi-wfa-sub')) $('kpi-wfa-sub').textContent = 'Sube el Summary WFA para ingresar datos';
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   INICIALIZACIÓN AL CARGAR LA PÁGINA
+══════════════════════════════════════════════════════ */
+async function cargarSnapshot() {
+  try {
+    const r = await fetch('../snapshot.txt', { cache:'no-store' });
+    if (!r.ok) return;
+    const snap = await r.json();
+    window.__SNAP_D__ = snap.descartes || {};
+  } catch(e) { /* sin snapshot — modo normal */ }
+}
+
+window.addEventListener('load', async () => {
+  await cargarSnapshot();
+
+  // Imágenes regulares (backtest full)
+  const slots = [
+    { imgId:'img-nums',  phId:'ph-nums',  loadedId:'loaded-nums',  def:'img/performance.png' },
+    { imgId:'img-curve', phId:'ph-curve', loadedId:'loaded-curve', def:'img/equity.png'      },
+    { imgId:'img-hd1',     phId:'ph-hd1',     loadedId:'loaded-hd1',     def:null },
+    { imgId:'img-hd2',     phId:'ph-hd2',     loadedId:'loaded-hd2',     def:null },
+    { imgId:'img-wfa-sum',  phId:'ph-wfa-sum',  loadedId:'loaded-wfa-sum',  def:null },
+    { imgId:'img-is-curve', phId:'ph-is-curve', loadedId:'loaded-is-curve', def:null },
+    { imgId:'img-oos-curve',phId:'ph-oos-curve',loadedId:'loaded-oos-curve',def:null },
+  ];
+  const SD = window.__SNAP_D__ || {};
+  slots.forEach(({ imgId, phId, loadedId, def }) => {
+    const src = SD['img_' + imgId] || localStorage.getItem('img_' + imgId);
+    if (src) {
+      setImg(imgId, phId, loadedId, src);
+    } else if (def) {
+      const t = new Image();
+      t.onload = () => setImg(imgId, phId, loadedId, def);
+      t.src = def + '?t=' + Date.now();
+    }
+  });
+
+  // Imágenes Holdout (IS / OOS)
+  ['is', 'oos'].forEach(period => {
+    const imgId    = 'img-' + period;
+    const phId     = 'ph-'  + period;
+    const loadedId = 'loaded-' + period;
+    const panelId  = 'panel-'  + period;
+    const savedImg = SD['img_' + imgId] || localStorage.getItem('img_' + imgId);
+    if (savedImg) {
+      setImg(imgId, phId, loadedId, savedImg);
+      const panel = document.getElementById(panelId);
+      if (panel) panel.classList.add('visible');
+      restoreDataFields(period);
+    }
+  });
+
+  updateKPIs();
+
+  if (SD['img_img-wfa-sum'] || localStorage.getItem('img_img-wfa-sum')) {
+    const panel = document.getElementById('panel-wfa');
+    if (panel) { panel.classList.add('visible'); restoreWFAFields(); }
+  }
+  updateWFAKPIs();
+});
+
+/* ── EXPORTAR PARA COMPARTIR ── */
+function exportarParaCompartir() {
+  const btn     = document.getElementById('btn-export');
+  const spinner = document.getElementById('export-spinner');
+  const label   = document.getElementById('export-label');
+  btn.disabled = true; spinner.style.display = 'block'; label.textContent = 'Generando…';
+
+  try {
+    /* 1. Recolectar imágenes y datos de localStorage */
+    const imgKeys = ['img-nums','img-curve','img-hd1','img-hd2',
+                     'img-wfa-sum','img-is','img-is-curve','img-oos','img-oos-curve'];
+    const lsKeys  = ['holdout_is','holdout_oos','holdout_wfa'];
+    const snap = {};
+    imgKeys.forEach(k => { const v = localStorage.getItem('img_'  + k); if(v) snap['img_'  + k] = v; });
+    lsKeys.forEach( k => { const v = localStorage.getItem(k);           if(v) snap[k]             = v; });
+
+    /* 2. Obtener HTML e inyectar snapshot */
+    let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+    const script = `\n<script id="__descartes_snapshot__">window.__PRELOADED_LS__=${JSON.stringify(snap)};<\/script>`;
+    html = html.replace('<head>', '<head>' + script);
+
+    /* 3. Descargar */
+    const blob = new Blob([html], { type:'text/html;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = 'DESCARTES_compartir.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    label.textContent = '✅ Descargado';
+    setTimeout(() => { label.textContent = '📤 Exportar para compartir'; btn.disabled = false; spinner.style.display = 'none'; }, 2500);
+  } catch(err) {
+    label.textContent = '❌ Error'; btn.disabled = false; spinner.style.display = 'none';
+    setTimeout(() => { label.textContent = '📤 Exportar para compartir'; }, 3000);
+  }
+}
+</script>
+</body>
+</html>

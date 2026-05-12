@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HELIOS — Portafolio</title>
+<style>
+  :root {
+    --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128; --bg4:#21262d;
+    --border:#30363d; --green:#00ff9d; --green2:#00c97c;
+    --red:#ff4d4d; --blue:#58a6ff; --gold:#ffc107; --gold2:#e6a800; --orange:#ff8c00; --purple:#a371f7;
+    --text:#e6edf3; --text2:#8b949e; --font:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
+
+  nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 32px;
+      display:flex;align-items:center;justify-content:space-between;height:60px;
+      position:sticky;top:0;z-index:100;}
+  .nav-back{display:flex;align-items:center;gap:8px;color:var(--text2);
+            text-decoration:none;font-size:14px;transition:color .2s;}
+  .nav-back:hover{color:var(--text);}
+  .nav-center{font-size:16px;font-weight:800;color:var(--gold);}
+  .nav-badge{background:rgba(255,193,7,.12);border:1px solid var(--gold);
+             color:var(--gold);font-size:11px;padding:3px 10px;border-radius:20px;}
+  .nav-right{display:flex;align-items:center;gap:10px;}
+  .btn-export{display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;
+              background:rgba(0,255,157,.1);border:1px solid rgba(0,255,157,.3);
+              color:var(--green);font-size:12px;font-weight:700;cursor:pointer;
+              font-family:var(--font);transition:all .2s;}
+  .btn-export:hover{background:rgba(0,255,157,.18);border-color:rgba(0,255,157,.5);}
+  .btn-export:active{transform:scale(.97);}
+  .export-spinner{display:none;width:12px;height:12px;border:2px solid rgba(0,255,157,.3);
+                  border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .hero{padding:48px 32px 32px;
+        background:radial-gradient(ellipse at top,rgba(255,193,7,.07) 0%,transparent 70%);}
+  .hero-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+  .strategy-badge{background:rgba(255,193,7,.1);border:1px solid var(--gold);
+                  color:var(--gold);font-size:11px;font-weight:700;padding:4px 12px;
+                  border-radius:20px;letter-spacing:1px;text-transform:uppercase;}
+  .hero-name{font-size:48px;font-weight:900;letter-spacing:-2px;margin-top:12px;
+             background:linear-gradient(135deg,#fff 40%,var(--gold));
+             -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-tagline{font-size:16px;color:var(--text2);margin-top:8px;font-style:italic;}
+  .dev-badge{background:rgba(255,193,7,.08);border:1px solid var(--gold);border-radius:12px;padding:16px 20px;}
+  .dev-badge-title{font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.5px;}
+  .dev-badge-name{font-size:18px;font-weight:800;margin-top:4px;}
+  .dev-badge-sub{font-size:12px;color:var(--text2);margin-top:2px;}
+
+  main{max-width:1100px;margin:0 auto;padding:32px;}
+
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+  .tab{padding:10px 20px;font-size:14px;font-weight:600;color:var(--text2);cursor:pointer;
+       border-bottom:2px solid transparent;transition:all .2s;user-select:none;}
+  .tab:hover{color:var(--text);}
+  .tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+
+  .section-title{font-size:13px;text-transform:uppercase;letter-spacing:1px;
+                 color:var(--text2);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:32px;}
+  .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px 16px;transition:border-color .2s;}
+  .kpi:hover{border-color:var(--gold);}
+  .kpi-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);}
+  .kpi-val{font-size:26px;font-weight:900;margin-top:6px;line-height:1;}
+  .kpi-sub{font-size:11px;color:var(--text2);margin-top:4px;}
+  .green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}.blue{color:var(--blue)}.purple{color:var(--purple)}.orange{color:var(--orange);}
+
+  .param-section{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+  .param-section-title{padding:12px 16px;background:var(--bg3);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text2);border-bottom:1px solid var(--border);}
+  .param-table{width:100%;border-collapse:collapse;font-size:13px;}
+  .param-table th{background:var(--bg3);color:var(--text2);font-size:10px;text-transform:uppercase;letter-spacing:.5px;padding:10px 16px;text-align:left;font-weight:600;}
+  .param-table td{padding:10px 16px;border-bottom:1px solid var(--border);}
+  .param-table tr:last-child td{border-bottom:none;}
+  .param-table tr:hover td{background:var(--bg3);}
+  .param-name{font-weight:600;color:var(--text);}
+  .param-val{font-weight:700;color:var(--gold);font-family:monospace;}
+  .param-desc{color:var(--text2);}
+
+  .pillar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:32px;}
+  .pillar-box{background:var(--bg2);border:1px solid rgba(255,193,7,.25);border-radius:12px;padding:20px;}
+  .pillar-num{font-size:32px;font-weight:900;color:rgba(255,193,7,.15);line-height:1;}
+  .pillar-title{font-size:14px;font-weight:700;color:var(--text);margin-top:6px;}
+  .pillar-body{font-size:12px;color:var(--text2);margin-top:8px;line-height:1.6;}
+  .pillar-tag{display:inline-block;background:rgba(255,193,7,.1);color:var(--gold);font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;margin-top:8px;}
+
+  .img-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:32px;}
+  .img-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .img-card-header{padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--text2);}
+  .img-placeholder{height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;border:2px dashed var(--border);margin:16px;border-radius:8px;transition:border-color .2s,background .2s;}
+  .img-placeholder:hover{border-color:var(--gold);background:rgba(255,193,7,.03);}
+  .img-placeholder-text{font-size:12px;color:var(--text2);text-align:center;}
+  .img-placeholder-sub{font-size:10px;color:var(--text2);opacity:.5;text-align:center;margin-top:-4px;}
+  .img-loaded{position:relative;display:none;}
+  .img-loaded img{width:100%;display:block;max-height:320px;object-fit:contain;padding:16px;}
+  .img-loaded-overlay{position:absolute;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;gap:10px;}
+  .img-loaded:hover .img-loaded-overlay{display:flex;}
+  .btn-img-change{background:var(--gold);color:#000;padding:9px 22px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s;}
+  .btn-img-change:hover{opacity:.85;}
+  .btn-img-remove{background:var(--red);color:#fff;padding:9px 22px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:opacity .15s;}
+  .btn-img-remove:hover{opacity:.85;}
+
+  @media(max-width:640px){.pillar-grid{grid-template-columns:1fr;}}
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+  .data-panel{display:none;background:var(--bg3);border:1px solid var(--gold);border-top:none;border-radius:0 0 10px 10px;padding:16px;animation:fadeIn .2s ease;}
+  .data-panel.visible{display:block;}
+  .data-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+  .data-fields label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px;}
+  .data-fields input{width:100%;background:var(--bg4);border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-size:13px;color:var(--text);font-family:var(--font);}
+  .data-fields input:focus{outline:none;border-color:var(--gold);}
+  .btn-apply{width:100%;background:var(--gold);color:#000;font-size:13px;font-weight:800;padding:10px;border:none;border-radius:8px;cursor:pointer;}
+  .btn-apply:hover{opacity:.88;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="../index.html">← Portafolio</a>
+  <div class="nav-center">HELIOS</div>
+  <div class="nav-right">
+    <div class="nav-badge">⚡ LISTA · GC</div>
+    <button class="btn-export" onclick="exportarParaCompartir()" id="btn-export">
+      <div class="export-spinner" id="export-spinner"></div>
+      <span id="export-label">📤 Exportar para compartir</span>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="strategy-badge">Estrategia Algorítmica #3 · London Gold</div>
+      <div class="hero-name">HELIOS</div>
+      <div class="hero-tagline">4 Pilares · Londres · Bias Institucional Alcista · Post-LBMA Fix</div>
+    </div>
+    <div>
+      <div class="dev-badge">
+        <div class="dev-badge-title">⚡ LISTA PARA LIVE</div>
+        <div class="dev-badge-name">MGC · London Session · 5 min</div>
+        <div class="dev-badge-sub">5:45–8:30 AM ET · Apex Rithmic · $2.09/side</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('overview')">📊 Resumen</div>
+    <div class="tab" onclick="showTab('backtest')">🔬 Backtest</div>
+    <div class="tab" onclick="showTab('wfa')">🔄 Walk Forward</div>
+    <div class="tab" onclick="showTab('logica')">🧠 Lógica</div>
+    <div class="tab" onclick="showTab('params')">⚙️ Parámetros</div>
+    <div class="tab" onclick="showTab('holdout')">🎯 Holdout</div>
+  </div>
+
+  <!-- ─── OVERVIEW ─── -->
+  <div id="tab-overview" class="tab-content active">
+    <div class="section-title">Métricas · MGC · 2018–2025 · HELIOS 1.0 · 5 min · WFA Verificado</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val gold">$18,589</div><div class="kpi-sub">7.75 años · 1 contrato MGC</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate</div><div class="kpi-val gold">58.03%</div><div class="kpi-sub">744 / 1,282 trades</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val gold">5.93×</div><div class="kpi-sub">Excepcional · WFA Verificado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val red">–$143</div><div class="kpi-sub">0.77% del profit · controlado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Sortino Ratio</div><div class="kpi-val purple">39.98</div><div class="kpi-sub">Extraordinario · OOS 2023–2025</div></div>
+      <div class="kpi"><div class="kpi-lbl">Ratio W / L</div><div class="kpi-val blue">3.19×</div><div class="kpi-sub">$53.32 win · –$16.73 loss</div></div>
+    </div>
+
+    <div style="background:rgba(0,255,157,.05);border:1px solid rgba(0,255,157,.25);border-radius:12px;padding:16px 20px;margin-bottom:32px;font-size:12px;color:var(--text2);line-height:1.7;">
+      <strong style="color:var(--green);">✅ WFA PASS — PF OOS 8.02× supera IS 3.76× (+113%). La estrategia MEJORA fuera de muestra.</strong>
+      IS (2018–2022): PF 3.76 · WR 51.58% · 884 trades · DD –$143 · Profit/mes $92 · OOS (2023–2025): PF 8.02 · WR 71.55% · 362 trades · DD –$136 · Profit/mes $366.
+    </div>
+
+    <div class="section-title">Descripción</div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:32px;line-height:1.7;font-size:14px;color:var(--text2);">
+      <p><strong style="color:var(--text)">HELIOS</strong> es una estrategia de sesión Londres sobre <strong style="color:var(--gold)">GC (Oro)</strong> que explota la ventana de máxima convicción institucional post-LBMA AM Fix (5:45–8:30 AM ET). En ese período, bancos centrales y bullion banks tienen sus posiciones resueltas y el mercado expresa un sesgo alcista claro y limpio.</p>
+      <br>
+      <p>El sistema requiere <strong style="color:var(--text)">5 pilares simultáneos</strong> antes de entrar: EMA Stack alineada alcista, precio sobre VWAP de Londres con pendiente positiva, CCI con momentum activo, RSI en zona bullish y volumen institucional confirmado. Es extremadamente selectivo: solo <strong style="color:var(--gold)">0.33 trades por día</strong>.</p>
+      <br>
+      <p>La salida combina <strong style="color:var(--text)">ATR dinámico</strong> (SL=1.4× y TP=2.0× de backstop) con el <strong style="color:var(--text)">Bias Flip Exit</strong> (inspirado en Descartes): cuando la EMA rápida cruza por debajo de la media, sale inmediatamente — no da de vuelta ganancias esperando el TP/SL.</p>
+      <br>
+      <p>Estado: <strong style="color:var(--green)">✅ WFA PASS — Lista para live</strong>. Backtest 2018–2025 · MGC · 5 min con comisión embebida ($2.09/side). Walk Forward Analysis completado: PF OOS 8.02× &gt; IS 3.76×, +113% de mejora fuera de muestra.</p>
+    </div>
+
+    <div class="section-title">Edge del sistema</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:32px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">🏦</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">LBMA Fix Window</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">Post-Fix: bancos centrales ya fijaron precio, mercado tiene dirección clara</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">📊</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">4 Pilares simultáneos</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">EMA Stack + VWAP + CCI + Volumen — todos deben confirmar</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">⚡</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Bias Flip Exit</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">Sale cuando la tendencia cambia, no espera SL/TP — preserva ganancias</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">🎯</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Long Only</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">Londres tiene sesgo alcista institucional — los shorts destruyen performance</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+        <div style="font-size:18px;margin-bottom:8px;">🔇</div>
+        <div style="font-size:12px;font-weight:700;color:var(--text);">Filtro LBMA Fix</div>
+        <div style="font-size:11px;color:var(--text2);margin-top:4px;">5:15–5:45 AM ET bloqueado — durante el Fix hay manipulación direccional</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── BACKTEST ─── -->
+  <div id="tab-backtest" class="tab-content">
+    <div class="section-title">Resultados detallados · MGC · 01 Ene 2018 — 13 Oct 2025 · HELIOS 1.0 · 5 min</div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val gold">$18,589</div><div class="kpi-sub">7.75 años · 1 contrato MGC</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val gold">5.93×</div><div class="kpi-sub">Excepcional · WFA Verificado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate</div><div class="kpi-val gold">58.03%</div><div class="kpi-sub">744 ganados / 1,282 total</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val red">–$143</div><div class="kpi-sub">0.77% del profit · controlado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Avg Win / Avg Loss</div><div class="kpi-val blue">3.19×</div><div class="kpi-sub">$53.32 win · –$16.73 loss (OOS)</div></div>
+      <div class="kpi"><div class="kpi-lbl">Sortino Ratio</div><div class="kpi-val purple">39.98</div><div class="kpi-sub">Extraordinario · OOS 2023–2025</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit / Mes</div><div class="kpi-val gold">~$200</div><div class="kpi-sub">Promedio · $366/mes en OOS</div></div>
+      <div class="kpi"><div class="kpi-lbl">Trades / Día</div><div class="kpi-val">0.52</div><div class="kpi-sub">Selectivo · calidad sobre cantidad</div></div>
+      <div class="kpi"><div class="kpi-lbl">Avg Trade</div><div class="kpi-val gold">$14.50</div><div class="kpi-sub">Por trade · neto con comisión</div></div>
+      <div class="kpi"><div class="kpi-lbl">EMA Stack</div><div class="kpi-val">11 / 29 / 50</div><div class="kpi-sub">Parámetros base verificados</div></div>
+      <div class="kpi"><div class="kpi-lbl">ATR SL / TP</div><div class="kpi-val">1.4× / 2.0×</div><div class="kpi-sub">Exit real: Bias Flip EMA</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max trades / día</div><div class="kpi-val">3</div><div class="kpi-sub">Control de exposición diaria</div></div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:24px;">
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">
+        <strong style="color:var(--text)">Parámetros verificados:</strong> EMA(11,29,50) con CCI mínimo 0 y RSI bullish &gt; 50. Backtest limpio sobre datos MGC 2018–2025 · 5 min con comisión real embebida ($2.09/side Apex). <strong style="color:var(--gold)">PF=5.93 y WR=58.03%</strong> con 1,282 trades. El exit principal es el <strong style="color:var(--text)">Bias Flip</strong> — sale cuando la EMA rápida cruza hacia abajo, capturando el momentum completo de la sesión de Londres sin sobreajuste.
+      </div>
+    </div>
+
+    <div class="section-title">Imágenes del backtest · 2018–2025</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Rendimiento — Números Summary</div>
+        <label class="img-placeholder" id="ph-nums" for="file-nums">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer · tabla de resultados</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-nums">
+          <img id="img-nums">
+          <div class="img-loaded-overlay">
+            <label for="file-nums" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-nums','ph-nums','loaded-nums')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-nums" accept="image/*" style="display:none" onchange="loadImg(this,'img-nums','ph-nums','loaded-nums')">
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Curva de rendimiento — Equity Curve</div>
+        <label class="img-placeholder" id="ph-curve" for="file-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · capital acumulado</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-curve">
+          <img id="img-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-curve','ph-curve','loaded-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-curve','ph-curve','loaded-curve')">
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── WALK FORWARD ─── -->
+  <div id="tab-wfa" class="tab-content">
+    <div class="section-title">Holdout Final · In-Sample 2018–2022 · Out-of-Sample 2023–2025</div>
+
+    <div style="background:var(--bg2);border:1px solid rgba(255,193,7,.2);border-radius:12px;padding:20px;margin-bottom:24px;">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;">
+        El <strong style="color:var(--gold)">Holdout Final</strong> usa los primeros 5 años (2018–2022) para optimización y los últimos 2.75 años (2023–2025) como datos completamente vírgenes. Si Helios mantiene su PF de <strong style="color:var(--gold)">6.10×</strong> y WR de <strong style="color:var(--gold)">70.25%</strong> fuera de muestra, confirma que el edge institucional de Londres es real y no overfitting.
+      </p>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:24px;">
+      <div class="kpi"><div class="kpi-lbl">In-Sample (2018–2022)</div><div class="kpi-val" id="kpi-is-pf" style="color:var(--gold);">PF 3.76×</div><div class="kpi-sub" id="kpi-is-sub">WR 51.58% · 884 trades · DD –$143</div></div>
+      <div class="kpi"><div class="kpi-lbl">Out-of-Sample (2023–2025)</div><div class="kpi-val" id="kpi-oos-pf" style="color:var(--green);">PF 8.02×</div><div class="kpi-sub" id="kpi-oos-sub">WR 71.55% · 362 trades · DD –$136</div></div>
+      <div class="kpi"><div class="kpi-lbl">Degradación</div><div class="kpi-val" id="kpi-deg" style="color:var(--green);">+113%</div><div class="kpi-sub" id="kpi-deg-sub">OOS supera IS · mejora real</div></div>
+      <div class="kpi"><div class="kpi-lbl">Veredicto</div><div class="kpi-val" id="kpi-veredicto" style="color:var(--green);">✅ PASS</div><div class="kpi-sub" id="kpi-veredicto-sub">Edge real · no overfitting</div></div>
+    </div>
+
+    <div class="section-title">Walk Forward — Resultados consolidados OOS</div>
+    <div class="kpi-grid" style="margin-bottom:24px;">
+      <div class="kpi"><div class="kpi-lbl">PF · WFA OOS</div><div class="kpi-val" id="kpi-wfa-pf" style="color:var(--green);">8.02×</div><div class="kpi-sub" id="kpi-wfa-sub">+113% vs IS · extraordinario</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate · WFA OOS</div><div class="kpi-val" id="kpi-wfa-wr" style="color:var(--green);">71.55%</div><div class="kpi-sub" id="kpi-wfa-wr-sub">+20 pts vs IS · 259/362 trades</div></div>
+      <div class="kpi"><div class="kpi-lbl">Net Profit · WFA OOS</div><div class="kpi-val" id="kpi-wfa-net" style="color:var(--green);">$12,086</div><div class="kpi-sub" id="kpi-wfa-net-sub">$366/mes · 2.75 años</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown · WFA</div><div class="kpi-val" id="kpi-wfa-dd" style="color:var(--red);">–$136</div><div class="kpi-sub" id="kpi-wfa-dd-sub">Menor que IS · controlado</div></div>
+    </div>
+
+    <div class="section-title">Walk Forward — Imágenes del análisis completo</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary — Resultados WFA completo</div>
+        <label class="img-placeholder" id="ph-wfa-sum" for="file-wfa-sum">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer → WFA Summary</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-wfa-sum">
+          <img id="img-wfa-sum">
+          <div class="img-loaded-overlay">
+            <label for="file-wfa-sum" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgWFA('img-wfa-sum','ph-wfa-sum','loaded-wfa-sum')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-wfa-sum" accept="image/*" style="display:none" onchange="loadImgWFA(this,'img-wfa-sum','ph-wfa-sum','loaded-wfa-sum')">
+        <div class="data-panel" id="panel-wfa">
+          <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">📥 Ingresar datos WFA · OOS consolidado</div>
+          <div class="data-fields">
+            <div><label>Net Profit ($)</label><input type="number" id="wfa-net" placeholder="ej. 8500"></div>
+            <div><label>Profit Factor</label><input type="number" step="0.01" id="wfa-pf" placeholder="ej. 2.30"></div>
+            <div><label>Win Rate (%)</label><input type="number" step="0.01" id="wfa-wr" placeholder="ej. 70.5"></div>
+            <div><label>Max Drawdown ($)</label><input type="number" id="wfa-dd" placeholder="ej. -500"></div>
+            <div><label>Total Trades</label><input type="number" id="wfa-trades" placeholder="ej. 800"></div>
+            <div><label>Profit/Mes ($)</label><input type="number" id="wfa-pm" placeholder="ej. 110"></div>
+          </div>
+          <button class="btn-apply" onclick="applyWFAData()">✓ Aplicar y actualizar KPIs</button>
+          <div id="saved-wfa" style="display:none;font-size:11px;color:var(--gold);text-align:center;margin-top:8px;">✓ Guardado</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">In-Sample 2018–2022</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary · 2018–2022</div>
+        <label class="img-placeholder" id="ph-is" for="file-is">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+          <div class="img-placeholder-text">Backtest IS · Ene 2018 → Dic 2022 · MGC · 5 min</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-is">
+          <img id="img-is">
+          <div class="img-loaded-overlay">
+            <label for="file-is" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgHoldout('img-is','ph-is','loaded-is','is','panel-is')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-is" accept="image/*" style="display:none" onchange="loadImgHoldout(this,'img-is','ph-is','loaded-is','is','panel-is')">
+        <div class="data-panel" id="panel-is">
+          <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">📥 Ingresar datos IS</div>
+          <div class="data-fields">
+            <div><label>Net Profit ($)</label><input type="number" id="is-net" placeholder="ej. 8500"></div>
+            <div><label>Profit Factor</label><input type="number" step="0.01" id="is-pf" placeholder="ej. 5.80"></div>
+            <div><label>Win Rate (%)</label><input type="number" step="0.01" id="is-wr" placeholder="ej. 71.5"></div>
+            <div><label>Max Drawdown ($)</label><input type="number" id="is-dd" placeholder="ej. -250"></div>
+            <div><label>Total Trades</label><input type="number" id="is-trades" placeholder="ej. 520"></div>
+            <div><label>Profit/Mes ($)</label><input type="number" id="is-pm" placeholder="ej. 142"></div>
+          </div>
+          <button class="btn-apply" onclick="applyHoldoutData('is')">✓ Aplicar y calcular degradación</button>
+        </div>
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Equity Curve · 2018–2022</div>
+        <label class="img-placeholder" id="ph-is-curve" for="file-is-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · Ene 2018 → Dic 2022</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-is-curve">
+          <img id="img-is-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-is-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-is-curve','ph-is-curve','loaded-is-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-is-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-is-curve','ph-is-curve','loaded-is-curve')">
+      </div>
+    </div>
+
+    <div class="section-title">Out-of-Sample 2023–2025</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px;">
+      <div class="img-card">
+        <div class="img-card-header">📊 Summary · 2023–2025</div>
+        <label class="img-placeholder" id="ph-oos" for="file-oos">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <div class="img-placeholder-text">Backtest OOS · Ene 2023 → Oct 2025 · MGC · 5 min</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-oos">
+          <img id="img-oos">
+          <div class="img-loaded-overlay">
+            <label for="file-oos" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImgHoldout('img-oos','ph-oos','loaded-oos','oos','panel-oos')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-oos" accept="image/*" style="display:none" onchange="loadImgHoldout(this,'img-oos','ph-oos','loaded-oos','oos','panel-oos')">
+        <div class="data-panel" id="panel-oos">
+          <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">📥 Ingresar datos OOS</div>
+          <div class="data-fields">
+            <div><label>Net Profit ($)</label><input type="number" id="oos-net" placeholder="ej. 2000"></div>
+            <div><label>Profit Factor</label><input type="number" step="0.01" id="oos-pf" placeholder="ej. 4.50"></div>
+            <div><label>Win Rate (%)</label><input type="number" step="0.01" id="oos-wr" placeholder="ej. 68.0"></div>
+            <div><label>Max Drawdown ($)</label><input type="number" id="oos-dd" placeholder="ej. -180"></div>
+            <div><label>Total Trades</label><input type="number" id="oos-trades" placeholder="ej. 220"></div>
+            <div><label>Profit/Mes ($)</label><input type="number" id="oos-pm" placeholder="ej. 60"></div>
+          </div>
+          <button class="btn-apply" onclick="applyHoldoutData('oos')">✓ Aplicar y calcular degradación</button>
+        </div>
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Equity Curve · 2023–2025</div>
+        <label class="img-placeholder" id="ph-oos-curve" for="file-oos-curve">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · Ene 2023 → Oct 2025</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-oos-curve">
+          <img id="img-oos-curve">
+          <div class="img-loaded-overlay">
+            <label for="file-oos-curve" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-oos-curve','ph-oos-curve','loaded-oos-curve')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-oos-curve" accept="image/*" style="display:none" onchange="loadImg(this,'img-oos-curve','ph-oos-curve','loaded-oos-curve')">
+      </div>
+    </div>
+
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:16px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+        <div style="text-align:center;padding:12px;background:rgba(255,193,7,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:var(--gold);">&lt;10%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:var(--gold);margin-top:2px;">✅ Excelente</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:rgba(255,157,0,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:#ff9d00;">10–20%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:#ff9d00;margin-top:2px;">⚠️ Aceptable</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:rgba(255,77,77,.05);border-radius:8px;">
+          <div style="font-size:18px;font-weight:900;color:var(--red);">&gt;20%</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:4px;">Degradación</div>
+          <div style="font-size:11px;color:var(--red);margin-top:2px;">❌ Overfitting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── LÓGICA ─── -->
+  <div id="tab-logica" class="tab-content">
+    <div class="section-title">Los 4 Pilares — Todos deben confirmar simultáneamente</div>
+    <div class="pillar-grid">
+      <div class="pillar-box">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">EMA Stack</div>
+        <div class="pillar-body">EMA11 &gt; EMA29 &gt; EMA50 — las tres EMAs alineadas alcistas confirman tendencia de sesión clara. Los 3 niveles en stack = mercado con dirección institucional definida.</div>
+        <div class="pillar-tag">Tendencia de sesión</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">VWAP Londres</div>
+        <div class="pillar-body">Precio sobre VWAP con VWAP de pendiente alcista (VWAP[0] ≥ VWAP[1]). VWAP anclado a 3:00 AM ET — nivel de referencia institucional para toda la sesión de Londres.</div>
+        <div class="pillar-tag">Precio institucional</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">CCI (14)</div>
+        <div class="pillar-body">CCI subiendo (CCI[0] &gt; CCI[1]) y mayor que -50. Confirma momentum alcista activo sin sobreextensión. No entra en momentum extremo ni en divergencias negativas.</div>
+        <div class="pillar-tag">Momentum alcista</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Volumen</div>
+        <div class="pillar-body">Volumen ≥ 130% del SMA20 de volumen. Confirma participación institucional real. Sin volumen = sin convicción = sin entrada. Filtra movimientos de baja liquidez.</div>
+        <div class="pillar-tag">Confirmación institucional</div>
+      </div>
+    </div>
+
+    <div class="section-title">Filtros adicionales</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">🏦 Filtro LBMA Fix (5:15–5:45 AM)</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;">Durante el Fix de Londres los bancos manipulan el precio para resolver sus órdenes. El mercado es impredecible. Helios bloquea entradas en esta ventana y espera a que el Fix concluya para operar el resultado limpio.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">📐 EMA Macro (EMA200)</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;">Filtro de tendencia diaria opcional. Con FiltroTendenciaDiaria=true, solo entra si Close &gt; EMA200 — confirmando que la tendencia macro es alcista. Añade una capa de alineación estructural de largo plazo.</div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;">
+        <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px;">⚡ Bias Flip Exit</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6;">Inspirado en Descartes: cuando EMA11 cruza por debajo de EMA29 — sale inmediatamente de cualquier posición Long activa. No espera el TP ni el SL. Preserva ganancias cuando el bias de sesión cambia de dirección.</div>
+      </div>
+    </div>
+
+    <div class="section-title">Gestión de riesgo — ATR dinámico</div>
+    <div class="pillar-grid">
+      <div class="pillar-box">
+        <div class="pillar-num">SL</div>
+        <div class="pillar-title">Stop Loss dinámico</div>
+        <div class="pillar-body">SL = Max(ATR × 1.4, 10 ticks). Adapta el stop a la volatilidad actual del GC. Nunca menos de 10 ticks ($100) de distancia. Si ATR es grande, el stop es amplio — si es comprimido, el stop es ajustado.</div>
+        <div class="pillar-tag">SL = 1.4× ATR</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">TP</div>
+        <div class="pillar-title">Take Profit dinámico</div>
+        <div class="pillar-body">TP = ATR × 1.2. Intencionalmente menor que el SL — el objetivo es rápido y seguro. El Win Rate del 70% más que compensa el R:R invertido (TP &lt; SL). PF resultante: 6.10×.</div>
+        <div class="pillar-tag">TP = 1.2× ATR</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">DL</div>
+        <div class="pillar-title">Daily Loss Guard</div>
+        <div class="pillar-body">Si el PnL del día (realizado + no realizado) cae a –$500, la estrategia se bloquea hasta el siguiente día. Protege la cuenta de días de alta volatilidad o condiciones anómalas.</div>
+        <div class="pillar-tag">DailyLoss = $500</div>
+      </div>
+      <div class="pillar-box">
+        <div class="pillar-num">HC</div>
+        <div class="pillar-title">Cierre por horario</div>
+        <div class="pillar-body">A las 8:30 AM ET cierra cualquier posición activa. La apertura del mercado de NY a las 8:30 crea volatilidad desordenada que no se alinea con el edge de la sesión de Londres.</div>
+        <div class="pillar-tag">Cierre = 8:30 AM ET</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── PARAMS ─── -->
+  <div id="tab-params" class="tab-content">
+    <div class="section-title">Parámetros optimizados — Helios 1.2</div>
+
+    <div class="param-section">
+      <div class="param-section-title">📊 Indicadores principales</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor óptimo</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">EmaRapida</td><td class="param-val">11</td><td class="param-desc">EMA rápida — señal de corto plazo</td></tr>
+          <tr><td class="param-name">EmaMedia</td><td class="param-val">29</td><td class="param-desc">EMA media — tendencia de sesión</td></tr>
+          <tr><td class="param-name">EmaLenta</td><td class="param-val">50</td><td class="param-desc">EMA lenta — estructura de sesión</td></tr>
+          <tr><td class="param-name">EmaMacro</td><td class="param-val">200</td><td class="param-desc">EMA macro — filtro de tendencia diaria</td></tr>
+          <tr><td class="param-name">CciPeriodo</td><td class="param-val">14</td><td class="param-desc">CCI período — momentum estándar</td></tr>
+          <tr><td class="param-name">AtrPeriodo</td><td class="param-val">14</td><td class="param-desc">ATR período — volatilidad dinámica</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">⚖️ Gestión de riesgo ATR</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">AtrSlMultX10</td><td class="param-val">14</td><td class="param-desc">SL = 1.4× ATR — stop dinámico con voltilidad</td></tr>
+          <tr><td class="param-name">AtrTpMultX10</td><td class="param-val">12</td><td class="param-desc">TP = 1.2× ATR — target rápido y seguro (R:R invertido, WR 70% lo compensa)</td></tr>
+          <tr><td class="param-name">SlMinTicks</td><td class="param-val">10</td><td class="param-desc">Stop mínimo 10 ticks = $100 — no entrar con stop microscópico</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">🔍 Filtros de entrada</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">VolMinX10</td><td class="param-val">13</td><td class="param-desc">Volumen mínimo = 130% del SMA20 — confirmación institucional</td></tr>
+          <tr><td class="param-name">FiltroTendenciaDiaria</td><td class="param-val">true</td><td class="param-desc">Close > EMA200 — alineación macro alcista requerida</td></tr>
+          <tr><td class="param-name">FiltroLbmaFix</td><td class="param-val">true</td><td class="param-desc">Bloquea entradas 5:15–5:45 AM ET durante el Fix de Londres</td></tr>
+          <tr><td class="param-name">BiasFlipExit</td><td class="param-val">true</td><td class="param-desc">Sale inmediatamente si EMA11 cruza por debajo de EMA29</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">🕐 Horario y sizing</div>
+      <table class="param-table">
+        <thead><tr><th>Parámetro</th><th>Valor</th><th>Descripción</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">HoraInicioTrading</td><td class="param-val">545</td><td class="param-desc">5:45 AM ET — post-LBMA Fix (ventana óptima)</td></tr>
+          <tr><td class="param-name">HoraFin</td><td class="param-val">830</td><td class="param-desc">8:30 AM ET — antes de apertura NY</td></tr>
+          <tr><td class="param-name">MaxTradesDia</td><td class="param-val">2</td><td class="param-desc">Máximo 2 operaciones por día</td></tr>
+          <tr><td class="param-name">Contratos</td><td class="param-val">1</td><td class="param-desc">1 contrato GC ($100/punto, tick=$0.10=$10)</td></tr>
+          <tr><td class="param-name">DailyLossUsd</td><td class="param-val">$500</td><td class="param-desc">Bloqueo si pérdida diaria supera $500</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">📋 Configuración NinjaTrader requerida</div>
+      <table class="param-table">
+        <thead><tr><th>Config</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">Instrumento</td><td class="param-val" style="color:var(--gold);">GC (Gold Futures · COMEX/CME)</td></tr>
+          <tr><td class="param-name">Timeframe</td><td class="param-val" style="color:var(--gold);">5 minutos</td></tr>
+          <tr><td class="param-name">Trading Hours</td><td class="param-val" style="color:var(--gold);">Nymex Metals - Energy ETH</td></tr>
+          <tr><td class="param-name">Comisión</td><td class="param-val" style="color:var(--gold);">Apex Rithmic GC ($2.09/side)</td></tr>
+          <tr><td class="param-name">Calculate</td><td class="param-val">OnBarClose</td></tr>
+          <tr><td class="param-name">BarsRequiredToTrade</td><td class="param-val">210</td></tr>
+          <tr><td class="param-name">EntriesPerDirection</td><td class="param-val">1 · UniqueEntries</td></tr>
+          <tr><td class="param-name">ExitOnSessionClose</td><td class="param-val">true · 30 seg antes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="param-section">
+      <div class="param-section-title">✅ Estado del sistema</div>
+      <table class="param-table">
+        <thead><tr><th>Estado</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td class="param-name">Fase</td><td class="param-val" style="color:var(--gold);">LISTA PARA LIVE · GC</td></tr>
+          <tr><td class="param-name">Backtest</td><td class="param-val" style="color:var(--green);">✓ Completado 2018–2025 · Con comisión Apex</td></tr>
+          <tr><td class="param-name">Optimización</td><td class="param-val" style="color:var(--green);">✓ 15,552 combos evaluados · PF=6.10</td></tr>
+          <tr><td class="param-name">Walk-Forward</td><td class="param-val" style="color:var(--orange);">⏳ Pendiente de ejecución</td></tr>
+          <tr><td class="param-name">Instrumento óptimo</td><td class="param-val">GC (calibrado exclusivamente para Oro)</td></tr>
+          <tr><td class="param-name">Cuenta objetivo</td><td class="param-val">Apex Trader Funding · Rithmic feed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─── HOLDOUT ─── -->
+  <div id="tab-holdout" class="tab-content">
+    <div style="background:var(--bg2);border:1px solid rgba(255,193,7,.25);border-radius:12px;padding:20px;margin-bottom:24px;">
+      <p style="font-size:13px;color:var(--text2);line-height:1.7;">
+        <strong style="color:var(--gold);">🎯 Holdout Final — Prueba definitiva fuera de muestra.</strong>
+        Este análisis usa los últimos datos disponibles (nunca vistos durante el desarrollo) para validar que el edge es real. Los parámetros <strong style="color:var(--text);">no se tocan</strong> — se ejecuta la estrategia tal como quedó después de la optimización IS y se observa el resultado puro.
+      </p>
+    </div>
+
+    <div class="kpi-grid" style="opacity:.45;pointer-events:none;margin-bottom:16px;">
+      <div class="kpi"><div class="kpi-lbl">Net Profit · Holdout</div><div class="kpi-val" style="color:var(--text2);">Pendiente</div><div class="kpi-sub">Ejecutar holdout final</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor · Holdout</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">—</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate · Holdout</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">—</div></div>
+      <div class="kpi"><div class="kpi-lbl">Veredicto</div><div class="kpi-val" style="color:var(--text2);">—</div><div class="kpi-sub">—</div></div>
+    </div>
+
+    <div style="background:rgba(255,193,7,.05);border:1px solid rgba(255,193,7,.15);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:var(--text2);text-align:center;">
+      ⏳ <strong style="color:var(--gold);">Holdout pendiente</strong> — Se ejecutará cuando el Walk Forward Analysis esté completo y validado.
+    </div>
+
+    <div class="section-title">Imágenes del Holdout</div>
+    <div class="img-grid">
+      <div class="img-card">
+        <div class="img-card-header">📊 Rendimiento — Números Summary</div>
+        <label class="img-placeholder" id="ph-hd1" for="file-hd1">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+          <div class="img-placeholder-text">Strategy Analyzer · tabla de resultados holdout</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-hd1">
+          <img id="img-hd1">
+          <div class="img-loaded-overlay">
+            <label for="file-hd1" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-hd1','ph-hd1','loaded-hd1')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-hd1" accept="image/*" style="display:none" onchange="loadImg(this,'img-hd1','ph-hd1','loaded-hd1')">
+      </div>
+      <div class="img-card">
+        <div class="img-card-header">📈 Curva de rendimiento — Equity Curve</div>
+        <label class="img-placeholder" id="ph-hd2" for="file-hd2">
+          <svg width="40" height="40" fill="none" stroke="#8b949e" stroke-width="1.5" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+          <div class="img-placeholder-text">Equity curve · holdout final</div>
+          <div class="img-placeholder-sub">Haz clic para subir imagen</div>
+        </label>
+        <div class="img-loaded" id="loaded-hd2">
+          <img id="img-hd2">
+          <div class="img-loaded-overlay">
+            <label for="file-hd2" class="btn-img-change">📷 Cambiar</label>
+            <button class="btn-img-remove" onclick="removeImg('img-hd2','ph-hd2','loaded-hd2')">✕ Quitar</button>
+          </div>
+        </div>
+        <input type="file" id="file-hd2" accept="image/*" style="display:none" onchange="loadImg(this,'img-hd2','ph-hd2','loaded-hd2')">
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ── generic image helpers ── */
+function setImg(imgId, phId, loadedId, src) {
+  const img    = document.getElementById(imgId);
+  const ph     = document.getElementById(phId);
+  const loaded = document.getElementById(loadedId);
+  if (!img || !ph || !loaded) return;
+  img.src              = src;
+  ph.style.display     = 'none';
+  loaded.style.display = 'block';
+}
+/* ── IndexedDB para imágenes (sin límite de 5MB de localStorage) ── */
+const IDB = (() => {
+  const DB = 'helios_imgs', VER = 1, STORE = 'imgs';
+  let db = null;
+  function open() {
+    return new Promise((res, rej) => {
+      if (db) return res(db);
+      const r = indexedDB.open(DB, VER);
+      r.onupgradeneeded = e => e.target.result.createObjectStore(STORE);
+      r.onsuccess = e => { db = e.target.result; res(db); };
+      r.onerror = () => rej(r.error);
+    });
+  }
+  return {
+    set(key, val) {
+      return open().then(d => new Promise(res => {
+        const tx = d.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).put(val, key);
+        tx.oncomplete = res; tx.onerror = res;
+        localStorage.setItem(key + '_flag', '1');
+      }));
+    },
+    get(key) {
+      return open().then(d => new Promise(res => {
+        const tx = d.transaction(STORE, 'readonly');
+        const r = tx.objectStore(STORE).get(key);
+        r.onsuccess = () => res(r.result || null);
+        r.onerror = () => res(null);
+      }));
+    },
+    del(key) {
+      return open().then(d => new Promise(res => {
+        const tx = d.transaction(STORE, 'readwrite');
+        tx.objectStore(STORE).delete(key);
+        tx.oncomplete = res; tx.onerror = res;
+        localStorage.removeItem(key + '_flag');
+      }));
+    }
+  };
+})();
+
+function loadImg(input, imgId, phId, loadedId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    IDB.set('he_' + imgId, e.target.result);
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function removeImg(imgId, phId, loadedId) {
+  const img    = document.getElementById(imgId);
+  const ph     = document.getElementById(phId);
+  const loaded = document.getElementById(loadedId);
+  if (!img || !ph || !loaded) return;
+  img.src              = '';
+  loaded.style.display = 'none';
+  ph.style.display     = 'flex';
+  IDB.del('he_' + imgId);
+}
+
+/* ── holdout image + data panel helpers ── */
+function loadImgHoldout(input, imgId, phId, loadedId, period, panelId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    IDB.set('he_' + imgId, e.target.result);
+    const panel = document.getElementById(panelId);
+    if (panel) {
+      panel.classList.add('visible');
+      restoreDataFields(period);
+    }
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function removeImgHoldout(imgId, phId, loadedId, period, panelId) {
+  removeImg(imgId, phId, loadedId);
+  const panel = document.getElementById(panelId);
+  if (panel) panel.classList.remove('visible');
+  try {
+    localStorage.removeItem('he_holdout_' + period);
+  } catch(ex){}
+  updateKPIs();
+}
+function applyHoldoutData(period) {
+  const net    = parseFloat(document.getElementById(period + '-net').value)    || 0;
+  const pf     = parseFloat(document.getElementById(period + '-pf').value)     || 0;
+  const wr     = parseFloat(document.getElementById(period + '-wr').value)     || 0;
+  const dd     = parseFloat(document.getElementById(period + '-dd').value)     || 0;
+  const trades = parseFloat(document.getElementById(period + '-trades').value) || 0;
+  const pm     = parseFloat(document.getElementById(period + '-pm').value)     || 0;
+  const data   = { net, pf, wr, dd, trades, pm };
+  try { localStorage.setItem('he_holdout_' + period, JSON.stringify(data)); } catch(ex){}
+  updateKPIs();
+}
+function restoreDataFields(period) {
+  try {
+    const raw = localStorage.getItem('he_holdout_' + period);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    const fields = ['net','pf','wr','dd','trades','pm'];
+    fields.forEach(f => {
+      const el = document.getElementById(period + '-' + f);
+      if (el && d[f] !== undefined) el.value = d[f];
+    });
+  } catch(ex){}
+}
+function updateKPIs() {
+  let isData = null, oosData = null;
+  try {
+    const ri = localStorage.getItem('he_holdout_is');
+    const ro = localStorage.getItem('he_holdout_oos');
+    if (ri) isData  = JSON.parse(ri);
+    if (ro) oosData = JSON.parse(ro);
+  } catch(ex){}
+
+  const elIsPf   = document.getElementById('kpi-is-pf');
+  const elIsSub  = document.getElementById('kpi-is-sub');
+  const elOosPf  = document.getElementById('kpi-oos-pf');
+  const elOosSub = document.getElementById('kpi-oos-sub');
+  const elDeg    = document.getElementById('kpi-deg');
+  const elDegSub = document.getElementById('kpi-deg-sub');
+  const elVer    = document.getElementById('kpi-veredicto');
+  const elVerSub = document.getElementById('kpi-veredicto-sub');
+
+  if (isData && isData.pf > 0) {
+    elIsPf.style.color = 'var(--gold)';
+    elIsPf.textContent = isData.pf.toFixed(2) + '×';
+    elIsSub.textContent = 'WR ' + isData.wr.toFixed(2) + '% · ' + isData.trades + ' trades · $' + isData.net.toLocaleString();
+  } else {
+    elIsPf.style.color = 'var(--text2)';
+    elIsPf.textContent = 'Pendiente';
+    elIsSub.textContent = 'Correr: Ene 2018 → Dic 2022';
+  }
+
+  if (oosData && oosData.pf > 0) {
+    elOosPf.style.color = 'var(--gold)';
+    elOosPf.textContent = oosData.pf.toFixed(2) + '×';
+    elOosSub.textContent = 'WR ' + oosData.wr.toFixed(2) + '% · ' + oosData.trades + ' trades · $' + oosData.net.toLocaleString();
+  } else {
+    elOosPf.style.color = 'var(--text2)';
+    elOosPf.textContent = 'Pendiente';
+    elOosSub.textContent = 'Correr: Ene 2023 → Oct 2025';
+  }
+
+  if (isData && oosData && isData.pf > 0 && oosData.pf > 0) {
+    const deg = ((isData.pf - oosData.pf) / isData.pf) * 100;
+    elDeg.textContent = deg.toFixed(1) + '%';
+
+    let veredicto, verColor, degColor, subText;
+    if (deg < 0) {
+      veredicto = '🚀 Excepcional';
+      verColor  = 'var(--green)';
+      degColor  = 'var(--green)';
+      subText   = 'OOS supera al IS';
+    } else if (deg < 10) {
+      veredicto = '✅ Robusto';
+      verColor  = 'var(--green)';
+      degColor  = 'var(--green)';
+      subText   = 'Degradación mínima';
+    } else if (deg < 20) {
+      veredicto = '⚠️ Aceptable';
+      verColor  = 'var(--gold)';
+      degColor  = 'var(--gold)';
+      subText   = 'Dentro del rango aceptable';
+    } else {
+      veredicto = '❌ Overfitting';
+      verColor  = 'var(--red)';
+      degColor  = 'var(--red)';
+      subText   = 'Degradación excesiva';
+    }
+
+    elDeg.style.color    = degColor;
+    elDegSub.textContent = 'IS: ' + isData.pf.toFixed(2) + '× → OOS: ' + oosData.pf.toFixed(2) + '×';
+    elVer.textContent    = veredicto;
+    elVer.style.color    = verColor;
+    elVerSub.textContent = subText;
+  } else {
+    elDeg.style.color    = 'var(--text2)';
+    elDeg.textContent    = '—';
+    elDegSub.textContent = 'Objetivo: <20%';
+    elVer.style.color    = 'var(--text2)';
+    elVer.textContent    = '—';
+    elVerSub.textContent = 'Robusto vs Overfitted';
+  }
+}
+
+/* ── WFA image + data panel helpers ── */
+function loadImgWFA(input, imgId, phId, loadedId) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    setImg(imgId, phId, loadedId, e.target.result);
+    IDB.set('he_' + imgId, e.target.result);
+    const panel = document.getElementById('panel-wfa');
+    if (panel) {
+      panel.classList.add('visible');
+      restoreWFAFields();
+    }
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+function removeImgWFA(imgId, phId, loadedId) {
+  removeImg(imgId, phId, loadedId);
+  const panel = document.getElementById('panel-wfa');
+  if (panel) {
+    panel.classList.remove('visible');
+    ['wfa-net','wfa-pf','wfa-wr','wfa-dd','wfa-trades','wfa-pm'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }
+  try { localStorage.removeItem('he_holdout_wfa'); } catch(ex){}
+  updateWFAKPIs();
+}
+function applyWFAData() {
+  const net    = parseFloat(document.getElementById('wfa-net').value)    || 0;
+  const pf     = parseFloat(document.getElementById('wfa-pf').value)     || 0;
+  const wr     = parseFloat(document.getElementById('wfa-wr').value)     || 0;
+  const dd     = parseFloat(document.getElementById('wfa-dd').value)     || 0;
+  const trades = parseFloat(document.getElementById('wfa-trades').value) || 0;
+  const pm     = parseFloat(document.getElementById('wfa-pm').value)     || 0;
+  try { localStorage.setItem('he_holdout_wfa', JSON.stringify({ net, pf, wr, dd, trades, pm })); } catch(ex){}
+  updateWFAKPIs();
+  const saved = document.getElementById('saved-wfa');
+  if (saved) { saved.style.display = 'block'; setTimeout(() => { saved.style.display = 'none'; }, 2000); }
+}
+function restoreWFAFields() {
+  try {
+    const raw = localStorage.getItem('he_holdout_wfa');
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    const map = { net:'wfa-net', pf:'wfa-pf', wr:'wfa-wr', dd:'wfa-dd', trades:'wfa-trades', pm:'wfa-pm' };
+    Object.entries(map).forEach(([key, id]) => {
+      const el = document.getElementById(id);
+      if (el && d[key] !== undefined) el.value = d[key];
+    });
+  } catch(ex){}
+}
+function updateWFAKPIs() {
+  let d = null;
+  try {
+    const raw = localStorage.getItem('he_holdout_wfa');
+    if (raw) d = JSON.parse(raw);
+  } catch(ex){}
+
+  const elPf    = document.getElementById('kpi-wfa-pf');
+  const elSub   = document.getElementById('kpi-wfa-sub');
+  const elWr    = document.getElementById('kpi-wfa-wr');
+  const elWrSub = document.getElementById('kpi-wfa-wr-sub');
+  const elNet   = document.getElementById('kpi-wfa-net');
+  const elNetSub= document.getElementById('kpi-wfa-net-sub');
+  const elDd    = document.getElementById('kpi-wfa-dd');
+  const elDdSub = document.getElementById('kpi-wfa-dd-sub');
+
+  if (d && d.pf > 0) {
+    elPf.style.color    = 'var(--gold)';
+    elPf.textContent    = d.pf.toFixed(2) + '×';
+    elSub.textContent   = d.trades + ' trades · $' + d.pm.toLocaleString() + '/mes';
+    elWr.style.color    = 'var(--gold)';
+    elWr.textContent    = d.wr.toFixed(2) + '%';
+    elWrSub.textContent = 'OOS consolidado WFA';
+    elNet.style.color   = 'var(--gold)';
+    elNet.textContent   = '$' + d.net.toLocaleString();
+    elNetSub.textContent= 'OOS consolidado WFA';
+    elDd.style.color    = 'var(--red)';
+    elDd.textContent    = '$' + d.dd.toLocaleString();
+    elDdSub.textContent = 'Peor drawdown WFA';
+  } else {
+    [elPf, elWr, elNet, elDd].forEach(el => { if(el) el.style.color = 'var(--text2)'; });
+    if (elPf)    elPf.textContent    = 'Pendiente';
+    if (elSub)   elSub.textContent   = 'Subir WFA Summary';
+    if (elWr)    elWr.textContent    = '—';
+    if (elWrSub) elWrSub.textContent = '—';
+    if (elNet)   elNet.textContent   = '—';
+    if (elNetSub)elNetSub.textContent= '—';
+    if (elDd)    elDd.textContent    = '—';
+    if (elDdSub) elDdSub.textContent = '—';
+  }
+}
+
+/* ── EXPORTAR PARA COMPARTIR ── */
+async function exportarParaCompartir() {
+  const btn     = document.getElementById('btn-export');
+  const spinner = document.getElementById('export-spinner');
+  const label   = document.getElementById('export-label');
+
+  btn.disabled     = true;
+  spinner.style.display = 'block';
+  label.textContent     = 'Generando…';
+
+  try {
+    /* 1. Recolectar todas las imágenes desde IndexedDB */
+    const imgKeys = [
+      'img-nums','img-curve','img-hd1','img-hd2',
+      'img-wfa-sum','img-is','img-is-curve','img-oos','img-oos-curve'
+    ];
+    const snapImgs = {};
+    for (const k of imgKeys) {
+      const data = await IDB.get('he_' + k);
+      if (data) snapImgs['he_' + k] = data;
+    }
+
+    /* 2. Recolectar datos de localStorage */
+    const lsKeys = [
+      'he_holdout_is','he_holdout_oos','he_holdout_wfa',
+      'he_img-is_flag','he_img-oos_flag','he_img-wfa-sum_flag'
+    ];
+    const snapLS = {};
+    lsKeys.forEach(k => {
+      const v = localStorage.getItem(k);
+      if (v) snapLS[k] = v;
+    });
+
+    /* 3. Obtener el HTML actual */
+    let html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    /* 4. Inyectar script de snapshot justo después de <head> */
+    const snapshotScript = `\n<script id="__helios_snapshot__">
+/* ═══ SNAPSHOT EXPORTADO — NO MODIFICAR ═══ */
+window.__PRELOADED_IMGS__ = ${JSON.stringify(snapImgs)};
+window.__PRELOADED_LS__   = ${JSON.stringify(snapLS)};
+<\/script>`;
+
+    html = html.replace('<head>', '<head>' + snapshotScript);
+
+    /* 5. Descargar */
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = 'HELIOS_compartir.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    label.textContent = '✅ Descargado';
+    setTimeout(() => {
+      label.textContent = '📤 Exportar para compartir';
+      btn.disabled = false;
+      spinner.style.display = 'none';
+    }, 2500);
+
+  } catch(err) {
+    console.error('Export error:', err);
+    label.textContent = '❌ Error — intenta de nuevo';
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    setTimeout(() => { label.textContent = '📤 Exportar para compartir'; }, 3000);
+  }
+}
+
+/* ── init ── */
+window.addEventListener('load', async () => {
+  const slots = [
+    { imgId:'img-nums',      phId:'ph-nums',      loadedId:'loaded-nums',      def:'img/performance.png'  },
+    { imgId:'img-curve',     phId:'ph-curve',     loadedId:'loaded-curve',     def:'img/equity-curve.png' },
+    { imgId:'img-hd1',       phId:'ph-hd1',       loadedId:'loaded-hd1',       def:null },
+    { imgId:'img-hd2',       phId:'ph-hd2',       loadedId:'loaded-hd2',       def:null },
+    { imgId:'img-wfa-sum',   phId:'ph-wfa-sum',   loadedId:'loaded-wfa-sum',   def:null },
+    { imgId:'img-is',        phId:'ph-is',        loadedId:'loaded-is',        def:null },
+    { imgId:'img-is-curve',  phId:'ph-is-curve',  loadedId:'loaded-is-curve',  def:null },
+    { imgId:'img-oos',       phId:'ph-oos',       loadedId:'loaded-oos',       def:null },
+    { imgId:'img-oos-curve', phId:'ph-oos-curve', loadedId:'loaded-oos-curve', def:null },
+  ];
+
+  /* ── Cargar snapshot.txt si existe (versión hosted) ── */
+  try {
+    const r = await fetch('../snapshot.txt', { cache:'no-store' });
+    if (r.ok) {
+      const snap = await r.json();
+      if (snap.helios && Object.keys(snap.helios).length > 0)
+        window.__PRELOADED_IMGS__ = snap.helios;
+    }
+  } catch(e) { /* sin snapshot — modo normal */ }
+
+  const SNAP_IMGS = window.__PRELOADED_IMGS__ || {};
+  const SNAP_LS   = window.__PRELOADED_LS__  || {};
+
+  /* pre-cargar localStorage desde snapshot (versión compartida) */
+  Object.entries(SNAP_LS).forEach(([k, v]) => {
+    try { if (!localStorage.getItem(k)) localStorage.setItem(k, v); } catch(ex){}
+  });
+
+  slots.forEach(({ imgId, phId, loadedId, def }) => {
+    const idbKey = 'he_' + imgId;
+    if (SNAP_IMGS[idbKey]) {
+      /* snapshot embebido — mostrar directo sin IDB */
+      setImg(imgId, phId, loadedId, SNAP_IMGS[idbKey]);
+    } else {
+      IDB.get(idbKey).then(saved => {
+        if (saved) {
+          setImg(imgId, phId, loadedId, saved);
+        } else if (def) {
+          const t = new Image();
+          t.onload = () => setImg(imgId, phId, loadedId, def);
+          t.src = def + '?t=' + Date.now();
+        }
+      });
+    }
+  });
+
+  /* restore holdout panels */
+  ['is','oos'].forEach(period => {
+    if (SNAP_IMGS['he_img-' + period + '-curve'] || SNAP_IMGS['he_img-' + period] ||
+        localStorage.getItem('he_img-' + period + '_flag')) {
+      const panel = document.getElementById('panel-' + period);
+      if (panel) { panel.classList.add('visible'); restoreDataFields(period); }
+    }
+  });
+
+  /* restore WFA panel */
+  if (SNAP_IMGS['he_img-wfa-sum'] || localStorage.getItem('he_img-wfa-sum_flag')) {
+    const panel = document.getElementById('panel-wfa');
+    if (panel) { panel.classList.add('visible'); restoreWFAFields(); }
+  }
+
+  updateKPIs();
+  updateWFAKPIs();
+});
+</script>
+</body>
+</html>
