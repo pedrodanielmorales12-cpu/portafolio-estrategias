@@ -1,7 +1,9 @@
-// HELIOS 1.0 — London GC | SOLO LONGS | 15-min bars
+// HELIOS 1.0 — London MGC | SOLO LONGS | 5-min bars  ← VALIDADO WFA
 // Sesión: 5:45 AM - 8:30 AM ET (post-LBMA Fix, máxima convicción institucional)
 // 5 Pilares: EMA Stack + VWAP + CCI + RSI + Volumen
-// Comisión Apex embebida en código | Trailing Stop | Circuit Breaker
+// Comisión Apex embebida en código | Bias Flip Exit | Circuit Breaker
+// WFA PASS: IS PF=3.76 (2018-2022) | OOS PF=8.02 (2023-2025) | +113% fuera de muestra
+// Net Profit 2018-2025: $18,589 | PF: 5.93 | WR: 58.03% | DD: -$143 | 1,282 trades
 
 #region Using declarations
 using System;
@@ -177,7 +179,7 @@ namespace NinjaTrader.NinjaScript.Strategies
         {
             if (State == State.SetDefaults)
             {
-                Description                  = "HELIOS 1.0 — GC London SOLO LONGS | Backtest limpio: PF=4.33 WR=54.39% N=649 DD=-$125 | 5 Pilares: EMA(11)+VWAP+CCI+RSI+Vol | BiasFlip Exit principal | Circuit Breaker | Comisión Apex embebida | REQUIERE Trading Hours = Nymex Metals - Energy ETH | Timeframe: 15 min";
+                Description                  = "HELIOS 1.0 — MGC London SOLO LONGS | WFA PASS: PF=5.93 WR=58.03% N=1282 DD=-$143 | OOS PF=8.02 +113% vs IS | 5 Pilares: EMA(11)+VWAP+CCI+RSI+Vol | BiasFlip Exit | Circuit Breaker | Comision Apex embebida | REQUIERE Trading Hours = Nymex Metals - Energy ETH | Timeframe: 5 min";
                 Name                         = "HELIOS 1.0";
                 Calculate                    = Calculate.OnBarClose;
                 EntriesPerDirection          = 1;
