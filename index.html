@@ -182,6 +182,7 @@ nav {
 .wr-track   { height:6px; background:var(--bg3); border-radius:3px; overflow:hidden; }
 .wr-fill    { height:100%; border-radius:3px; transition:width 1.8s cubic-bezier(.2,.8,.2,1); }
 .wr-fill-green  { background:linear-gradient(90deg, var(--green2), var(--green)); }
+.wr-fill-blue   { background:linear-gradient(90deg, #2979d4, var(--blue)); }
 .wr-fill-orange { background:linear-gradient(90deg, #e06020, #ff9d00); }
 .wr-fill-gold   { background:linear-gradient(90deg, var(--gold2), var(--gold)); }
 .wr-fill-panzer { background:linear-gradient(90deg, var(--orange2), var(--orange)); }
@@ -254,7 +255,7 @@ nav {
   <div style="display:flex;align-items:center;gap:10px;">
     <div class="nav-live">
       <div class="pulse"></div>
-      4 estrategias · 1 en vivo · APEX-568274-01
+      4 estrategias · 3 en vivo · FundedNext
     </div>
     <button id="btn-snapshot" onclick="crearSnapshot()" style="
       display:flex;align-items:center;gap:6px;padding:7px 16px;border-radius:8px;
@@ -285,19 +286,19 @@ nav {
   <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="stat-cell">
-      <div class="stat-val">4</div>
+      <div class="stat-val">3</div>
       <div class="stat-lbl">Estrategias</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-val">$15,604,746</div>
+      <div class="stat-val">$414,957</div>
       <div class="stat-lbl">Profit total backtest</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-val">7 años</div>
+      <div class="stat-val">8 años</div>
       <div class="stat-lbl">Historial máximo</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-val">1 live · 3 en validación</div>
+      <div class="stat-val">3 en vivo</div>
       <div class="stat-lbl">En producción</div>
     </div>
   </div>
@@ -344,22 +345,22 @@ nav {
     <div class="kpi-block">
       <div class="kpi-item">
         <div class="kpi-lbl">Net Profit</div>
-        <div class="kpi-val kv-green">$102,382</div>
+        <div class="kpi-val kv-green">$114,129</div>
         <div class="kpi-sub">7.75 años · ES · 1 contrato</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Win Rate</div>
-        <div class="kpi-val kv-green">89.67%</div>
-        <div class="kpi-sub">5,798 / 6,466 trades</div>
+        <div class="kpi-val kv-green">90.29%</div>
+        <div class="kpi-sub">6,505 / 7,201 trades</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Max Drawdown</div>
-        <div class="kpi-val kv-red">–$1,609</div>
-        <div class="kpi-sub">1.57% del profit</div>
+        <div class="kpi-val kv-red">–$2,297</div>
+        <div class="kpi-sub">2.01% del profit</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit Factor</div>
-        <div class="kpi-val kv-gold">2.58×</div>
+        <div class="kpi-val kv-gold">2.45×</div>
         <div class="kpi-sub">$167K bruto ganado</div>
       </div>
       <div class="kpi-item">
@@ -369,18 +370,18 @@ nav {
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit / Mes</div>
-        <div class="kpi-val kv-green">~$810</div>
-        <div class="kpi-sub">Neto · comisión Apex real</div>
+        <div class="kpi-val kv-green">$1,224</div>
+        <div class="kpi-sub">Neto · comisión FundedNext real</div>
       </div>
     </div>
 
     <div class="wr-section">
       <div class="wr-header">
         <span>Win Rate</span>
-        <strong>89.67%</strong>
+        <strong>90.29%</strong>
       </div>
       <div class="wr-track">
-        <div class="wr-fill wr-fill-green" style="width:0%" data-w="87.6"></div>
+        <div class="wr-fill wr-fill-green" style="width:0%" data-w="90.29"></div>
       </div>
     </div>
 
@@ -483,7 +484,7 @@ nav {
         <div class="card-title" style="color:var(--gold);">HELIOS 1.0</div>
         <div class="card-tagline">Multi-Session Gold · Asia+Londres+NY · 5 Pilares · Bias Alcista</div>
       </div>
-      <div class="badge badge-gold">✅ WFA PASS</div>
+      <div class="badge badge-live"><div class="pulse"></div>EN VIVO</div>
     </div>
 
     <div class="card-info-row">
@@ -497,7 +498,7 @@ nav {
       </div>
       <div class="info-chip">
         <div class="info-chip-lbl">Modo</div>
-        <div class="info-chip-val">Long Only · 2 contratos</div>
+        <div class="info-chip-val">Long Only · 8 contratos</div>
       </div>
       <div class="info-chip">
         <div class="info-chip-lbl">Sesión</div>
@@ -506,139 +507,139 @@ nav {
     </div>
 
     <div class="card-desc">
-      Cinco pilares de confirmación: <strong style="color:var(--gold)">EMA Stack (11/29/50) + VWAP + CCI + RSI + Volumen</strong>. Cubre Asia cierre, Londres completo y NY Open. WFA excepcional: OOS PF <strong style="color:var(--gold)">8.58×</strong> supera IS 4.13× (+107%). Bias Flip Exit · Circuit Breaker · Max 5 trades/día.
+      Cinco pilares de confirmación: <strong style="color:var(--gold)">EMA Stack (11/29/50) + VWAP + CCI + RSI + Volumen</strong>. Cubre Asia cierre, Londres completo y NY Open. WFA excepcional: OOS PF <strong style="color:var(--gold)">6.82×</strong> supera IS 2.77× (+146%). Bias Flip Exit · Circuit Breaker · Max 5 trades/día.
     </div>
 
     <div class="kpi-block">
       <div class="kpi-item">
         <div class="kpi-lbl">Net Profit</div>
-        <div class="kpi-val kv-gold">$61,737</div>
-        <div class="kpi-sub">2018–2025 · MGC · 2 contratos</div>
+        <div class="kpi-val kv-gold">$267,260</div>
+        <div class="kpi-sub">2018–2025 · MGC · 8 contratos</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Win Rate</div>
-        <div class="kpi-val kv-gold">58.42%</div>
-        <div class="kpi-sub">1,075 / 1,840 trades</div>
+        <div class="kpi-val kv-gold">57.60%</div>
+        <div class="kpi-sub">1,167 / 2,026 trades</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Max Drawdown</div>
-        <div class="kpi-val kv-red">–$616</div>
-        <div class="kpi-sub">2 contratos · controlado</div>
+        <div class="kpi-val kv-red">–$2,124</div>
+        <div class="kpi-sub">8 contratos · controlado</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit Factor</div>
-        <div class="kpi-val kv-gold">6.42×</div>
+        <div class="kpi-val kv-gold">6.38×</div>
         <div class="kpi-sub">Full period · WFA verificado</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">WFA OOS</div>
         <div class="kpi-val kv-green">PASS ✓</div>
-        <div class="kpi-sub">PF OOS 8.58× vs IS 4.13×</div>
+        <div class="kpi-sub">OOS PF 6.82× · WR 56.13%</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit / Mes</div>
-        <div class="kpi-val kv-gold">~$664</div>
-        <div class="kpi-sub">Promedio · 2 contratos · neto</div>
+        <div class="kpi-val kv-gold">$2,873</div>
+        <div class="kpi-sub">Promedio · 8 contratos · neto</div>
       </div>
     </div>
 
     <div class="wr-section">
       <div class="wr-header">
-        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— 58.42% WR + PF 6.42× · OOS mejora a 8.58×</span></span>
-        <strong>58.42%</strong>
+        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— 57.60% WR + PF 6.38× · 8 contratos</span></span>
+        <strong>57.60%</strong>
       </div>
       <div class="wr-track">
-        <div class="wr-fill wr-fill-gold" style="width:0%" data-w="58.42"></div>
+        <div class="wr-fill wr-fill-gold" style="width:0%" data-w="57.60"></div>
       </div>
     </div>
 
     <div class="card-foot">
-      <div class="card-period">Backtest: 2018–2025 · MGC · 5 min · 2 contratos · WFA OOS PF 8.58× (+107% vs IS)</div>
+      <div class="card-period">Backtest: 2018–2026 · MGC · 5 min · 8 contratos · WFA OOS PF 6.82×</div>
       <div class="card-cta">Ver detalles →</div>
     </div>
   </a>
 
 
-  <!-- ══ PANZER GOLD ══ -->
-  <a class="card" href="panzer/index.html">
-    <div class="card-accent card-accent-orange"></div>
+  <!-- ══ RYUU ══ -->
+  <a class="card" href="ryuu/index.html">
+    <div class="card-accent card-accent-blue"></div>
 
     <div class="card-head">
       <div>
-        <div class="card-title" style="color:var(--orange);">PANZER GOLD</div>
-        <div class="card-tagline">London ORB · Breakout Apertura · Long Only · 3:00–3:20 AM ET</div>
+        <div class="card-title" style="color:var(--blue);">RYUU</div>
+        <div class="card-tagline">Asian Session ORB · SGE Open · Long Only · 8 PM–3 AM ET</div>
       </div>
-      <div class="badge badge-orange">⚙️ EN VALIDACIÓN</div>
+      <div class="badge badge-live"><div class="pulse"></div>EN VIVO</div>
     </div>
 
     <div class="card-info-row">
       <div class="info-chip">
         <div class="info-chip-lbl">Instrumento</div>
-        <div class="info-chip-val" style="color:var(--orange);">GC (Oro)</div>
+        <div class="info-chip-val blue">MGC (Micro Oro)</div>
       </div>
       <div class="info-chip">
         <div class="info-chip-lbl">Timeframe</div>
-        <div class="info-chip-val">1 min</div>
+        <div class="info-chip-val">5 min</div>
       </div>
       <div class="info-chip">
         <div class="info-chip-lbl">Modo</div>
-        <div class="info-chip-val">Long Only</div>
+        <div class="info-chip-val">Long Only · 8 contratos</div>
       </div>
       <div class="info-chip">
         <div class="info-chip-lbl">Sesión</div>
-        <div class="info-chip-val">Londres 3:00–10:00 AM</div>
+        <div class="info-chip-val">8 PM–3 AM ET</div>
       </div>
     </div>
 
     <div class="card-desc">
-      <strong style="color:var(--orange)">ORB (Opening Range Breakout)</strong> sobre GC. Define el rango 3:00–3:20 AM ET y entra long en el breakout confirmado por <strong style="color:var(--text)">EMA 12/21/200 + RSI &lt;65 + Volumen + SMA50 diaria</strong>. TP=1× rango · SL=2× rango · Daily Loss Guard · Máx. 5 trades/día. Walk Forward Analysis en curso.
+      <strong style="color:var(--blue)">ORB (Opening Range Breakout)</strong> sobre MGC. Define el rango 8:00–8:30 PM ET al abrir la SGE y entra long en el breakout confirmado por <strong style="color:var(--text)">EMA Stack 12/21/200 + RSI &lt;70 + Volumen</strong>. TP=1.5× rango · SL=2× rango · BiasFlip Exit · Daily Loss Guard $500 · Máx. 5 trades/sesión.
     </div>
 
     <div class="kpi-block">
       <div class="kpi-item">
         <div class="kpi-lbl">Net Profit</div>
-        <div class="kpi-val" style="color:var(--orange);">$18,392</div>
-        <div class="kpi-sub">7.75 años · GC · 1 contrato</div>
+        <div class="kpi-val kv-blue">$33,568</div>
+        <div class="kpi-sub">2018–2026 · MGC · 8 contratos</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Win Rate</div>
-        <div class="kpi-val" style="color:var(--orange);">87.17%</div>
-        <div class="kpi-sub">1,250 / 1,434 trades</div>
+        <div class="kpi-val kv-blue">72.23%</div>
+        <div class="kpi-sub">502 / 695 trades</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Max Drawdown</div>
-        <div class="kpi-val kv-red">–$79.98</div>
-        <div class="kpi-sub">0.43% del profit</div>
+        <div class="kpi-val kv-red">–$853</div>
+        <div class="kpi-sub">8 contratos · $700 daily limit</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit Factor</div>
-        <div class="kpi-val kv-gold">15.63×</div>
-        <div class="kpi-sub">Comisión embebida · WFA pendiente</div>
+        <div class="kpi-val kv-blue">6.45×</div>
+        <div class="kpi-sub">Full period · 8 años</div>
       </div>
       <div class="kpi-item">
-        <div class="kpi-lbl">Walk Forward</div>
-        <div class="kpi-val" style="color:var(--orange);">Pendiente</div>
-        <div class="kpi-sub">IS/OOS en curso</div>
+        <div class="kpi-lbl">WFA OOS</div>
+        <div class="kpi-val kv-blue">Pendiente</div>
+        <div class="kpi-sub">695 trades · 8 años · sesión asiática</div>
       </div>
       <div class="kpi-item">
         <div class="kpi-lbl">Profit / Mes</div>
-        <div class="kpi-val" style="color:var(--orange);">$197.94</div>
-        <div class="kpi-sub">Promedio · 1 contrato GC</div>
+        <div class="kpi-val kv-blue">$349</div>
+        <div class="kpi-sub">Promedio · 8 contratos · neto</div>
       </div>
     </div>
 
     <div class="wr-section">
       <div class="wr-header">
-        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— ORB London Gold · Solo Longs</span></span>
-        <strong>87.17%</strong>
+        <span>Win Rate <span style="color:var(--text2);font-size:10px;">— ORB Asiático MGC · Solo Longs · PF 6.45×</span></span>
+        <strong>72.23%</strong>
       </div>
       <div class="wr-track">
-        <div class="wr-fill wr-fill-panzer" style="width:0%" data-w="87.17"></div>
+        <div class="wr-fill wr-fill-blue" style="width:0%" data-w="72.23"></div>
       </div>
     </div>
 
     <div class="card-foot">
-      <div class="card-period">Backtest: 01 Ene 2018 → 13 Oct 2025 · GC · 1 min · Nymex ETH · WFA pendiente</div>
+      <div class="card-period">Backtest: 2018–2026 · MGC · 5 min · 8 contratos · FundedNext</div>
       <div class="card-cta">Ver detalles →</div>
     </div>
   </a>
@@ -677,60 +678,54 @@ nav {
     <div class="cmp-row">
       <div class="cmp-lbl">Net Profit</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$102,382</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">$970</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$61,737</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">$18,392</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$114,129</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$267,260</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$12,860</div></div>
       </div>
     </div>
 
     <div class="cmp-row">
       <div class="cmp-lbl">Profit Factor</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-gold">2.58×</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-gold">5.09×</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">6.42×</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num kv-gold">15.63×*</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-gold">2.45×</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">6.38×</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">6.45×</div></div>
       </div>
     </div>
 
     <div class="cmp-row">
       <div class="cmp-lbl">Win Rate</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">89.67%</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">54.03%</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">58.42%</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">87.17%</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">90.29%</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">57.60%</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">72.23%</div></div>
       </div>
     </div>
 
     <div class="cmp-row">
       <div class="cmp-lbl">Max Drawdown</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-red">–$2,399</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-red">–$43</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-red">–$616</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num kv-red">–$80</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-red">–$2,297</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-red">–$2,124</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-red">–$320</div></div>
       </div>
     </div>
 
     <div class="cmp-row">
       <div class="cmp-lbl">Trades totales</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num">7,403</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num">211</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num">1,840</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num">1,434</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num">7,201</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num">2,026</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num">695</div></div>
       </div>
     </div>
 
     <div class="cmp-row">
       <div class="cmp-lbl">Profit / Mes</div>
       <div class="cmp-vals">
-        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$810</div></div>
-        <div class="cmp-val"><div class="cmp-name">EVOLUTION</div><div class="cmp-num kv-blue">$10.47</div></div>
-        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$664</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--orange);">PANZER</div><div class="cmp-num" style="color:var(--orange);">$197.94</div></div>
+        <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$1,224</div></div>
+        <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$2,873</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$143</div></div>
       </div>
     </div>
 
@@ -784,12 +779,6 @@ async function crearSnapshot() {
     imgKeys.forEach(k => { const v = localStorage.getItem('img_' + k); if(v) D['img_' + k] = v; });
     ['holdout_is','holdout_oos','holdout_wfa'].forEach(k => { const v = localStorage.getItem(k); if(v) D[k] = v; });
 
-    /* ── EVOLUTION (localStorage: ev_*) ── */
-    lbl.textContent = 'EVOLUTION…';
-    const E = {};
-    imgKeys.forEach(k => { const v = localStorage.getItem('ev_' + k); if(v) E['ev_' + k] = v; });
-    ['ev_holdout_is','ev_holdout_oos','ev_holdout_wfa'].forEach(k => { const v = localStorage.getItem(k); if(v) E[k] = v; });
-
     /* ── HELIOS (IndexedDB: helios_imgs) ── */
     lbl.textContent = 'HELIOS…';
     const H = {};
@@ -798,25 +787,24 @@ async function crearSnapshot() {
       if (v) H['he_' + k] = v;
     }
 
-    /* ── PANZER GOLD (IndexedDB: panzer_imgs) ── */
-    lbl.textContent = 'PANZER GOLD…';
-    const P = {};
-    for (const k of ['img-nums','img-curve','img-is','img-oos']) {
-      const v = await leerIDB('panzer_imgs', 'imgs', 'pg_' + k);
-      if (v) P['pg_' + k] = v;
+    /* ── RYUU (IndexedDB: ryuu_imgs) ── */
+    lbl.textContent = 'RYUU…';
+    const R = {};
+    for (const k of ['ry-img-nums','ry-img-curve','ry-img-hd1','ry-img-hd2','ry-img-wfa-sum','ry-img-is','ry-img-oos']) {
+      const v = await leerIDB('ryuu_imgs', 'imgs', k);
+      if (v) R[k] = v;
     }
 
     /* ── GENERAR snapshot.js ── */
-    const totalImgs = Object.keys(D).length + Object.keys(E).length + Object.keys(H).length + Object.keys(P).length;
+    const totalImgs = Object.keys(D).length + Object.keys(H).length + Object.keys(R).length;
     lbl.textContent = `Generando (${totalImgs} imágenes)…`;
 
     const content = JSON.stringify({
       generado: new Date().toLocaleString('es'),
       totalImagenes: totalImgs,
       descartes: D,
-      evolution: E,
       helios: H,
-      panzer: P
+      ryuu: R
     }, null, 0);
 
     const blob = new Blob([content], { type:'text/plain;charset=utf-8' });
