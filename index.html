@@ -239,6 +239,58 @@ nav {
   .stat-cell { padding:16px 12px; }
   .stat-val { font-size:20px; }
 }
+
+/* ══════════════════════════════════
+   MASCOTS — decoración por estrategia
+══════════════════════════════════ */
+.card { position:relative; }
+.card-mascot {
+  position:absolute; top:6px; right:10px;
+  pointer-events:none; user-select:none; z-index:0;
+  transition:opacity .4s ease, filter .4s ease;
+}
+
+/* 🐉 RYUU — Dragón rojo flotando */
+.mascot-dragon {
+  font-size:96px; line-height:1; display:block;
+  filter:sepia(1) hue-rotate(340deg) saturate(6) brightness(.85);
+  opacity:.09;
+  transform:rotate(-14deg) scaleX(-1);
+  animation:dragon-float 4s ease-in-out infinite;
+}
+.card:hover .mascot-dragon {
+  opacity:.28;
+  filter:sepia(1) hue-rotate(340deg) saturate(6) brightness(.9) drop-shadow(0 0 22px rgba(255,50,50,.8));
+}
+@keyframes dragon-float {
+  0%,100%{ transform:rotate(-14deg) scaleX(-1) translateY(0); }
+  50%    { transform:rotate(-14deg) scaleX(-1) translateY(-11px); }
+}
+
+/* ☀️ HELIOS — Sol giratorio dorado */
+.mascot-sun { display:block; opacity:.09; transition:opacity .4s; }
+.card:hover .mascot-sun { opacity:.22; }
+.sun-rays-g   { animation:sun-spin 22s linear infinite; transform-origin:60px 60px; }
+.sun-core-pulse { animation:sun-pulse 3.5s ease-in-out infinite; transform-origin:60px 60px; }
+@keyframes sun-spin  { to{ transform:rotate(360deg); } }
+@keyframes sun-pulse {
+  0%,100%{ transform:scale(1);   }
+  50%    { transform:scale(1.12); }
+}
+
+/* 📐 DESCARTES — Ejes cartesianos */
+.mascot-axes { display:block; opacity:.08; transition:opacity .4s; }
+.card:hover .mascot-axes { opacity:.2; }
+
+/* ⚙️ EVOLUTION — Engranaje en reparación */
+.mascot-gear {
+  font-size:86px; line-height:1; display:block;
+  filter:grayscale(.55) sepia(.3) hue-rotate(10deg) brightness(.8);
+  opacity:.07;
+  animation:gear-spin 16s linear infinite;
+}
+.card:hover .mascot-gear { opacity:.16; }
+@keyframes gear-spin { to{ transform:rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -310,6 +362,26 @@ nav {
   <!-- ══ DESCARTES 1.0 ══ -->
   <a class="card" href="descartes/index.html">
     <div class="card-accent card-accent-green"></div>
+    <!-- Mascot: ejes cartesianos (Descartes inventó las coordenadas!) -->
+    <div class="card-mascot">
+      <svg class="mascot-axes" width="128" height="128" viewBox="0 0 100 100" fill="none">
+        <line x1="50" y1="92" x2="50" y2="8"  stroke="#00e5a0" stroke-width="1.4"/>
+        <polygon points="50,4 46,14 54,14"     fill="#00e5a0"/>
+        <line x1="8"  y1="50" x2="92" y2="50" stroke="#00e5a0" stroke-width="1.4"/>
+        <polygon points="96,50 86,46 86,54"    fill="#00e5a0"/>
+        <line x1="25" y1="16" x2="25" y2="84" stroke="#00e5a0" stroke-width=".5" stroke-dasharray="2,5"/>
+        <line x1="75" y1="16" x2="75" y2="84" stroke="#00e5a0" stroke-width=".5" stroke-dasharray="2,5"/>
+        <line x1="16" y1="25" x2="84" y2="25" stroke="#00e5a0" stroke-width=".5" stroke-dasharray="2,5"/>
+        <line x1="16" y1="75" x2="84" y2="75" stroke="#00e5a0" stroke-width=".5" stroke-dasharray="2,5"/>
+        <circle cx="50" cy="50" r="3.5" fill="#00e5a0"/>
+        <polyline points="18,80 32,60 50,42 68,30 82,22" stroke="#00e5a0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="18" cy="80" r="2.5" fill="#00e5a0"/>
+        <circle cx="32" cy="60" r="2.5" fill="#00e5a0"/>
+        <circle cx="50" cy="42" r="2.5" fill="#00e5a0"/>
+        <circle cx="68" cy="30" r="2.5" fill="#00e5a0"/>
+        <circle cx="82" cy="22" r="2.5" fill="#00e5a0"/>
+      </svg>
+    </div>
 
     <div class="card-head">
       <div>
@@ -394,6 +466,10 @@ nav {
   <!-- ══ EVOLUTION 1.0 ══ -->
   <a class="card" href="evolution/index.html">
     <div class="card-accent card-accent-blue"></div>
+    <!-- Mascot: engranaje girando — EN REPARACIÓN -->
+    <div class="card-mascot">
+      <span class="mascot-gear">⚙️</span>
+    </div>
 
     <div class="card-head">
       <div>
@@ -478,6 +554,24 @@ nav {
   <!-- ══ HELIOS 1.0 ══ -->
   <a class="card" href="helios/index.html">
     <div class="card-accent card-accent-gold"></div>
+    <!-- Mascot: sol con rayos giratorios dorados -->
+    <div class="card-mascot">
+      <svg class="mascot-sun" width="126" height="126" viewBox="0 0 120 120">
+        <g class="sun-rays-g">
+          <line x1="60" y1="5"   x2="60" y2="28"  stroke="#ffc107" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="60" y1="92"  x2="60" y2="115" stroke="#ffc107" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="5"  y1="60"  x2="28" y2="60"  stroke="#ffc107" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="92" y1="60"  x2="115" y2="60" stroke="#ffc107" stroke-width="3.5" stroke-linecap="round"/>
+          <line x1="16" y1="16"  x2="33" y2="33"  stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="104" y1="16" x2="87" y2="33"  stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="16"  y1="104" x2="33" y2="87" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+          <line x1="104" y1="104" x2="87" y2="87" stroke="#ffc107" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <circle class="sun-core-pulse" cx="60" cy="60" r="30" fill="rgba(255,193,7,.2)"/>
+        <circle cx="60" cy="60" r="20" fill="rgba(255,193,7,.38)"/>
+        <circle cx="60" cy="60" r="10" fill="rgba(255,220,0,.55)"/>
+      </svg>
+    </div>
 
     <div class="card-head">
       <div>
@@ -563,6 +657,10 @@ nav {
   <!-- ══ RYUU ══ -->
   <a class="card" href="ryuu/index.html">
     <div class="card-accent card-accent-blue"></div>
+    <!-- Mascot: dragón rojo flotando 🐉 -->
+    <div class="card-mascot">
+      <span class="mascot-dragon">🐉</span>
+    </div>
 
     <div class="card-head">
       <div>
@@ -680,7 +778,7 @@ nav {
       <div class="cmp-vals">
         <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$114,129</div></div>
         <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$267,260</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$12,860</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$33,568</div></div>
       </div>
     </div>
 
@@ -707,7 +805,7 @@ nav {
       <div class="cmp-vals">
         <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-red">–$2,297</div></div>
         <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-red">–$2,124</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-red">–$320</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-red">–$853</div></div>
       </div>
     </div>
 
@@ -725,7 +823,7 @@ nav {
       <div class="cmp-vals">
         <div class="cmp-val"><div class="cmp-name">DESCARTES</div><div class="cmp-num kv-green">$1,224</div></div>
         <div class="cmp-val"><div class="cmp-name">HELIOS</div><div class="cmp-num kv-gold">$2,873</div></div>
-        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$143</div></div>
+        <div class="cmp-val"><div class="cmp-name" style="color:var(--blue);">RYUU</div><div class="cmp-num kv-blue">$349</div></div>
       </div>
     </div>
 
