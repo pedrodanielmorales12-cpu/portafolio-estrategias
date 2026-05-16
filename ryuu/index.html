@@ -1095,15 +1095,15 @@ window.__PRELOADED_LS__   = ${JSON.stringify(snapLS)};
 /* ── init ── */
 window.addEventListener('load', async () => {
   const slots = [
-    { imgId:'img-nums',      phId:'ph-nums',      loadedId:'loaded-nums'      },
-    { imgId:'img-curve',     phId:'ph-curve',     loadedId:'loaded-curve'     },
-    { imgId:'img-hd1',       phId:'ph-hd1',       loadedId:'loaded-hd1'       },
-    { imgId:'img-hd2',       phId:'ph-hd2',       loadedId:'loaded-hd2'       },
-    { imgId:'img-wfa-sum',   phId:'ph-wfa-sum',   loadedId:'loaded-wfa-sum'   },
-    { imgId:'img-is',        phId:'ph-is',        loadedId:'loaded-is'        },
-    { imgId:'img-is-curve',  phId:'ph-is-curve',  loadedId:'loaded-is-curve'  },
-    { imgId:'img-oos',       phId:'ph-oos',       loadedId:'loaded-oos'       },
-    { imgId:'img-oos-curve', phId:'ph-oos-curve', loadedId:'loaded-oos-curve' },
+    { imgId:'img-nums',      phId:'ph-nums',      loadedId:'loaded-nums',      def:'img/nums.png'      },
+    { imgId:'img-curve',     phId:'ph-curve',     loadedId:'loaded-curve',     def:'img/curve.png'     },
+    { imgId:'img-hd1',       phId:'ph-hd1',       loadedId:'loaded-hd1',       def:null                },
+    { imgId:'img-hd2',       phId:'ph-hd2',       loadedId:'loaded-hd2',       def:null                },
+    { imgId:'img-wfa-sum',   phId:'ph-wfa-sum',   loadedId:'loaded-wfa-sum',   def:null                },
+    { imgId:'img-is',        phId:'ph-is',        loadedId:'loaded-is',        def:'img/is.png'        },
+    { imgId:'img-is-curve',  phId:'ph-is-curve',  loadedId:'loaded-is-curve',  def:'img/is-curve.png'  },
+    { imgId:'img-oos',       phId:'ph-oos',       loadedId:'loaded-oos',       def:'img/oos.png'       },
+    { imgId:'img-oos-curve', phId:'ph-oos-curve', loadedId:'loaded-oos-curve', def:'img/oos-curve.png' },
   ];
 
   const SNAP_IMGS = window.__PRELOADED_IMGS__ || {};
@@ -1113,13 +1113,17 @@ window.addEventListener('load', async () => {
     try { if (!localStorage.getItem(k)) localStorage.setItem(k, v); } catch(ex){}
   });
 
-  for (const { imgId, phId, loadedId } of slots) {
+  for (const { imgId, phId, loadedId, def } of slots) {
     const idbKey = 'ry_' + imgId;
     if (SNAP_IMGS[idbKey]) {
       setImg(imgId, phId, loadedId, SNAP_IMGS[idbKey]);
     } else {
       const stored = await IDB.get(idbKey);
-      if (stored) setImg(imgId, phId, loadedId, stored);
+      if (stored) {
+        setImg(imgId, phId, loadedId, stored);
+      } else if (def) {
+        setImg(imgId, phId, loadedId, def);
+      }
     }
   }
 
