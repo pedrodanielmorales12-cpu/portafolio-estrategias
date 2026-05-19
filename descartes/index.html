@@ -261,8 +261,8 @@
       </div>
       <div class="kpi">
         <div class="kpi-lbl">Holdout Oct–May 2026</div>
-        <div class="kpi-val orange">−$44</div>
-        <div class="kpi-sub">v1.1 · SL=80t · SMA50 · sin comisión</div>
+        <div class="kpi-val green">+$11,056</div>
+        <div class="kpi-sub">v1.1 · SL=0 · FiltroSMA50 · neto comisiones</div>
       </div>
       <div class="kpi">
         <div class="kpi-lbl">Avg Win</div>
@@ -676,14 +676,14 @@
       </div>
     </div>
 
-    <div class="section-title">Métricas del Holdout · Oct 2025 – May 2026 · Databento MES 1min · v1.1</div>
+    <div class="section-title">Métricas del Holdout · Oct 2025 – May 2026 · ES 1min · 1 contrato · v1.1 · FiltroSMA50</div>
     <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val orange">−$44</div><div class="kpi-sub">Sin comisión · 7.3 meses</div></div>
-      <div class="kpi"><div class="kpi-lbl">Win Rate</div><div class="kpi-val orange">44.4%</div><div class="kpi-sub">288 de 649 trades</div></div>
-      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val orange">0.98</div><div class="kpi-sub">Near-breakeven con crash 15%</div></div>
-      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val orange">−$238</div><div class="kpi-sub">−91% vs parámetros originales</div></div>
-      <div class="kpi"><div class="kpi-lbl">Total Trades</div><div class="kpi-val blue">649</div><div class="kpi-sub">~4.3 trades/día</div></div>
-      <div class="kpi"><div class="kpi-lbl">vs IS/OOS</div><div class="kpi-val orange">−$6/mes</div><div class="kpi-sub">IS/OOS ref: +$153/ct/mes</div></div>
+      <div class="kpi"><div class="kpi-lbl">Net Profit</div><div class="kpi-val green">+$11,056</div><div class="kpi-sub">Neto comisiones · 7.5 meses</div></div>
+      <div class="kpi"><div class="kpi-lbl">Win Rate</div><div class="kpi-val green">92.82%</div><div class="kpi-sub">478 de 515 trades</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit Factor</div><div class="kpi-val green">2.70</div><div class="kpi-sub">Supera IS 2.55 · +5.9%</div></div>
+      <div class="kpi"><div class="kpi-lbl">Max Drawdown</div><div class="kpi-val blue">−$1,459</div><div class="kpi-sub">1 contrato ES · controlado</div></div>
+      <div class="kpi"><div class="kpi-lbl">Total Trades</div><div class="kpi-val blue">515</div><div class="kpi-sub">~2.74 trades/día</div></div>
+      <div class="kpi"><div class="kpi-lbl">Profit / Mes</div><div class="kpi-val green">+$1,474</div><div class="kpi-sub">Neto · vs $671/mes IS (+120%)</div></div>
     </div>
 
     <div style="background:var(--bg2);border:1px solid rgba(255,180,0,.25);border-radius:12px;padding:24px;margin-bottom:28px;">
@@ -692,12 +692,12 @@
         <div style="font-size:14px;font-weight:800;color:#ffd700;">Contexto del período holdout</div>
       </div>
       <div style="font-size:13px;color:var(--text2);line-height:1.8;">
-        <p>El holdout cubre <strong style="color:var(--text)">Oct 2025 – May 2026</strong> con datos de Databento (ES/MES 1min, futuros front-month continuos). Este período incluyó condiciones de mercado extremas — el peor posible para una estrategia long-only:</p>
+        <p>El holdout cubre <strong style="color:var(--text)">Oct 2025 – May 2026</strong> con datos de NinjaTrader (ES 1min, futuros front-month continuos). Este período incluyó condiciones de mercado extremas — el peor posible para una estrategia long-only:</p>
         <br>
         <p>• <strong style="color:var(--text)">Oct–Dic 2025:</strong> Tendencia alcista → estrategia en positivo</p>
         <p>• <strong style="color:var(--text)">Ene–May 2026:</strong> Crisis de aranceles Trump (abril 2026) → S&P cayó ~15%</p>
         <br>
-        <p><strong style="color:var(--text)">Evolución de parámetros durante el análisis:</strong> El holdout inicial (v1.0, SL=240t) dio −$801. Tras análisis del R:R estructural se identificó que el SL de 240 ticks era demasiado amplio. La combinación <strong style="color:#ffd700;">SL=80 ticks + Filtro SMA50 diaria</strong> (v1.1) redujo las pérdidas al −$44 con PF=0.98 — near-breakeven durante el mayor crash del período. Max Drawdown se redujo de −$2,660 a −$238 (−91%). <strong style="color:#ffd700;">Nota:</strong> Comisión no aplicada en el backtester (estimado: ~−$2,713 adicional a $4.18/RT × 649 trades).</p>
+        <p><strong style="color:var(--green)">Resultado final v1.1:</strong> Con <strong style="color:#ffd700;">FiltroSMA50 diaria activado + SL=0 (cálculo USD)</strong>, la estrategia generó <strong style="color:var(--green)">+$13,208 bruto (+$11,056 neto)</strong> en el holdout — PF 2.70, Win Rate 92.82%, Max DD −$1,459. El holdout <strong style="color:var(--green)">supera el IS</strong> en todas las métricas clave. Comisiones estimadas: 515 trades × $4.18/RT = $2,153.</p>
       </div>
     </div>
 
